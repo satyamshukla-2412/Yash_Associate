@@ -1,0 +1,11 @@
+# Local Netlify folder
+.netlify
+
+# Build/Export files
+*.zip
+YASH_ASSOCIATE_Netlify.zip
+
+# Reference materials not needed in source code
+/Photo Referance/
+/Photo/
+/changes/
