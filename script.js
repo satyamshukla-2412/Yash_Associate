@@ -7,13 +7,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ────── PRELOADER ──────
     const preloader = document.getElementById('preloader');
-    // Keep branded entry visible for ~3 seconds
-    setTimeout(() => preloader.classList.add('hidden'), 3000);
-    window.addEventListener('load', () => {
+    // Keep branded entry visible for at least 3 seconds
+    const preloaderStart = Date.now();
+    const minPreloaderMs = 3000;
+    let preloaderHidden = false;
+
+    function hidePreloader() {
+        if (preloaderHidden) return;
+        preloaderHidden = true;
         preloader.classList.add('hidden');
+    }
+
+    window.addEventListener('load', () => {
+        const elapsed = Date.now() - preloaderStart;
+        const remaining = Math.max(0, minPreloaderMs - elapsed);
+        setTimeout(hidePreloader, remaining);
     });
-    // Safety fallback
-    setTimeout(() => preloader.classList.add('hidden'), 3500);
+
+    // Safety fallback if load event is delayed
+    setTimeout(hidePreloader, 4500);
 
     // ────── FETCH DYNAMIC CONTENT FROM DB ──────
     async function loadDynamicContent() {
