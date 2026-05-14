@@ -112,7 +112,7 @@ body {
     transition: all 0.3s ease;
 }
 
-.input-group input:focus {
+.input-group input:focus, .input-group textarea:focus {
     outline: none;
     border-color: var(--gold);
     background-color: rgba(0,0,0,0.4);
@@ -337,6 +337,24 @@ body {
     font-family: var(--font-heading);
 }
 
+/* Editor Section */
+.editor-card {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: var(--radius);
+    border: 1px solid rgba(201, 168, 76, 0.15);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.editor-card h3 {
+    font-family: var(--font-heading);
+    color: var(--gold-light);
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding-bottom: 10px;
+}
+
 /* Activity Table */
 .recent-activity h2 {
     font-family: var(--font-heading);
@@ -349,7 +367,7 @@ body {
     background-color: var(--card-bg);
     border-radius: var(--radius);
     border: 1px solid rgba(201, 168, 76, 0.15);
-    overflow: hidden;
+    overflow-x: auto;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
@@ -383,30 +401,4 @@ tr:last-child td {
 tr:hover td {
     background-color: rgba(255,255,255,0.02);
     color: var(--cream);
-}
-
-.badge {
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-}
-
-.badge.new {
-    background-color: rgba(201, 168, 76, 0.15);
-    color: var(--gold-light);
-    border: 1px solid var(--gold);
-}
-
-.badge.read {
-    background-color: rgba(255, 255, 255, 0.05);
-    color: var(--text-secondary);
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
-.badge.replied {
-    background-color: rgba(76, 201, 134, 0.15);
-    color: #4cc986;
-    border: 1px solid #4cc986;
 }

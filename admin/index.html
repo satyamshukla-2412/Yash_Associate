@@ -17,10 +17,8 @@
                 <p>Admin Panel</p>
             </div>
             <nav class="sidebar-nav">
-                <a href="#" class="nav-item active">Dashboard</a>
-                <a href="#" class="nav-item">Client Messages</a>
-                <a href="#" class="nav-item">Manage Practice Areas</a>
-                <a href="#" class="nav-item">Team Members</a>
+                <a href="#" class="nav-item active" onclick="switchTab('dashboard')">Dashboard / Messages</a>
+                <a href="#" class="nav-item" onclick="switchTab('editor')">Website CMS Editor</a>
                 <a href="#" class="nav-item">Settings</a>
             </nav>
             <div class="sidebar-footer">
@@ -31,60 +29,108 @@
         <!-- Main Content -->
         <main class="main-content">
             <header class="top-header">
-                <h1>Welcome, Admin</h1>
+                <h1 id="pageTitle">Messages</h1>
                 <div class="date-display" id="currentDate"></div>
             </header>
 
-            <section class="dashboard-stats">
-                <div class="stat-card">
-                    <h3>Total Visitors</h3>
-                    <p class="stat-number">1,204</p>
-                </div>
-                <div class="stat-card">
-                    <h3>New Messages</h3>
-                    <p class="stat-number">12</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Active Cases</h3>
-                    <p class="stat-number">45</p>
-                </div>
-            </section>
+            <!-- Dashboard / Messages Tab -->
+            <div id="dashboardTab">
+                <section class="dashboard-stats">
+                    <div class="stat-card">
+                        <h3>Total Visitors</h3>
+                        <p class="stat-number">2,408</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Messages</h3>
+                        <p class="stat-number" id="totalMsgCount">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Active Cases</h3>
+                        <p class="stat-number">45</p>
+                    </div>
+                </section>
 
-            <section class="recent-activity">
-                <h2>Recent Messages</h2>
-                <div class="activity-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Date</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Rahul Sharma</td>
-                                <td>rahul@example.com</td>
-                                <td>14 May 2026</td>
-                                <td><span class="badge new">New</span></td>
-                            </tr>
-                            <tr>
-                                <td>Priya Patel</td>
-                                <td>priya@example.com</td>
-                                <td>13 May 2026</td>
-                                <td><span class="badge read">Read</span></td>
-                            </tr>
-                            <tr>
-                                <td>Amit Kumar</td>
-                                <td>amit@example.com</td>
-                                <td>12 May 2026</td>
-                                <td><span class="badge replied">Replied</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+                <section class="recent-activity">
+                    <h2>Client Inquiries</h2>
+                    <div class="activity-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Message</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="messagesTableBody">
+                                <tr><td colspan="5">Loading messages...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Editor Tab (CMS) -->
+            <div id="editorTab" style="display: none;">
+                <section class="editor-section">
+                    <h2>Edit Website Content</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">Changes made here will instantly reflect on the live website.</p>
+                    
+                    <form id="cmsForm">
+                        <div class="editor-card">
+                            <h3>Hero Section</h3>
+                            <div class="input-group">
+                                <label>Main Title</label>
+                                <input type="text" id="heroTitle" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Sub Title</label>
+                                <input type="text" id="heroSubtitle" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Description</label>
+                                <textarea id="heroDescription" rows="3" required style="width:100%; padding: 14px 16px; background-color: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--text-primary); font-family: var(--font-body);"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="editor-card" style="margin-top: 24px;">
+                            <h3>About Firm Section</h3>
+                            <div class="input-group">
+                                <label>About Title</label>
+                                <input type="text" id="aboutTitle" required>
+                            </div>
+                            <div class="input-group">
+                                <label>About Text</label>
+                                <textarea id="aboutText" rows="4" required style="width:100%; padding: 14px 16px; background-color: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--text-primary); font-family: var(--font-body);"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="editor-card" style="margin-top: 24px;">
+                            <h3>Contact Information</h3>
+                            <div class="input-group">
+                                <label>Address</label>
+                                <input type="text" id="address" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Phone</label>
+                                <input type="text" id="phone" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Email</label>
+                                <input type="email" id="email" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-primary" id="saveCmsBtn" style="margin-top: 24px; max-width: 200px;">
+                            <span class="btn-text">Save Changes Live</span>
+                            <span class="loader" id="cmsLoader" style="display: none;"></span>
+                        </button>
+                        <p id="cmsMessage" style="margin-top:10px; font-weight:500;"></p>
+                    </form>
+                </section>
+            </div>
+
         </main>
     </div>
 

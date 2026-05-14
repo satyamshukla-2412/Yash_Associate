@@ -66,12 +66,12 @@
         <div class="hero-inner">
             <div class="hero-content" data-scroll="reveal">
                 <div class="hero-badge">Est. 2005 &bull; Mumbai, India</div>
-                <h1 class="hero-title">
+                <h1 class="hero-title" id="db-heroTitle">
                     <span class="hero-line line-1">Yash</span>
                     <span class="hero-line line-2">Associate</span>
                 </h1>
-                <p class="hero-tagline">Justice &bull; Integrity &bull; Dedication</p>
-                <p class="hero-description">
+                <p class="hero-tagline" id="db-heroSubtitle">Justice &bull; Integrity &bull; Dedication</p>
+                <p class="hero-description" id="db-heroDescription">
                     Led by <strong>ADV. Dilip H. Shukla</strong>, delivering 20+ years of unwavering legal counsel
                     across
                     civil, criminal, corporate, and constitutional law.
@@ -108,7 +108,7 @@
         <div class="container">
             <div class="section-header" data-scroll="reveal">
                 <span class="section-tag">About the Advocate</span>
-                <h2 class="section-title">ADV. Dilip H. Shukla</h2>
+                <h2 class="section-title" id="db-aboutTitle">ADV. Dilip H. Shukla</h2>
                 <div class="title-accent"></div>
             </div>
             <div class="about-grid">
@@ -130,13 +130,12 @@
                         Advocate Dilip H. Shukla is a dedicated legal professional known for his strong commitment to
                         justice, ethical practice, and client-focused legal solutions.
                     </p>
-                    <p class="about-text">
+                    <p class="about-text" id="db-aboutText" style="white-space: pre-line;">
                         He has extensive experience in handling legal matters across various areas of law and provides
                         reliable legal advice and representation to individuals and organizations. With a deep
                         understanding of the Indian legal system, Advocate Shukla approaches every case with thorough
                         research, strategic thinking, and professionalism.
-                    </p>
-                    <p class="about-text">
+
                         His practice is built on integrity, confidentiality, and a strong determination to protect the
                         rights and interests of his clients. Through his legal expertise and practical approach, he has
                         earned the trust and respect of clients and colleagues in the legal community.
@@ -549,21 +548,21 @@
                         <div class="contact-icon">📍</div>
                         <div>
                             <h4>Office Address</h4>
-                            <p>24-BD, Rajbhadur Compound, Opposite to BSE, Fort, Mumbai — 400001</p>
+                            <p id="db-address">24-BD, Rajbhadur Compound, Opposite to BSE, Fort, Mumbai — 400001</p>
                         </div>
                     </div>
                     <div class="contact-card">
                         <div class="contact-icon">📞</div>
                         <div>
                             <h4>Phone</h4>
-                            <p><a href="tel:9323282940">9323282940</a> / <a href="tel:9821248856">9821248856</a></p>
+                            <p id="db-phone"><a href="tel:9323282940">9323282940</a> / <a href="tel:9821248856">9821248856</a></p>
                         </div>
                     </div>
                     <div class="contact-card">
                         <div class="contact-icon">✉️</div>
                         <div>
                             <h4>Email</h4>
-                            <p><a href="mailto:dilipshukla81@yahoo.com">dilipshukla81@yahoo.com</a></p>
+                            <p id="db-email"><a href="mailto:dilipshukla81@yahoo.com">dilipshukla81@yahoo.com</a></p>
                         </div>
                     </div>
                     <div class="contact-card">
@@ -680,17 +679,12 @@
                     <p class="modal-subtitle">Fill in your details and we'll get back to you within 24 hours.</p>
                 </div>
                 <form
-                    action="https://formsubmit.co/dilipshukla81@yahoo.com"
+                    action="/api/submit-message"
                     method="POST"
                     id="consultationForm"
                     class="modal-form"
                 >
-                    <!-- FormSubmit config -->
-                    <input type="hidden" name="_subject" value="New Consultation Request — Yash Associate">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_template" value="table">
-                    <input type="text" name="_honey" style="display:none">
-                    <input type="hidden" name="_next" value="">
+                    <!-- Form config removed for API submit -->
 
                     <!-- Name -->
                     <div class="form-group">

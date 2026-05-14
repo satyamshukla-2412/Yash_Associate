@@ -15,6 +15,50 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fallback: hide preloader after 4s no matter what
     setTimeout(() => preloader.classList.add('hidden'), 4000);
 
+    // ────── FETCH DYNAMIC CONTENT FROM DB ──────
+    async function loadDynamicContent() {
+        try {
+            const res = await fetch('/api/get-content');
+            const result = await res.json();
+            if (result.success && result.data) {
+                const data = result.data;
+                const update = (id, text) => {
+                    const el = document.getElementById(id);
+                    if (el && text) el.textContent = text;
+                };
+                
+                // Update Hero
+                if (data.heroTitle) {
+                    const parts = data.heroTitle.split(' ');
+                    const titleEl = document.getElementById('db-heroTitle');
+                    if (titleEl) {
+                        titleEl.innerHTML = `<span class="hero-line line-1">${parts[0] || ''}</span><span class="hero-line line-2">${parts.slice(1).join(' ') || ''}</span>`;
+                    }
+                }
+                update('db-heroSubtitle', data.heroSubtitle);
+                update('db-heroDescription', data.heroDescription);
+                
+                // Update About
+                update('db-aboutTitle', data.aboutTitle);
+                update('db-aboutText', data.aboutText);
+                
+                // Update Contact
+                update('db-address', data.address);
+                if (data.phone) {
+                    const phoneEl = document.getElementById('db-phone');
+                    if(phoneEl) phoneEl.innerHTML = `<a href="tel:${data.phone.replace(/[^0-9+]/g, '')}">${data.phone}</a>`;
+                }
+                if (data.email) {
+                    const emailEl = document.getElementById('db-email');
+                    if(emailEl) emailEl.innerHTML = `<a href="mailto:${data.email}">${data.email}</a>`;
+                }
+            }
+        } catch (error) {
+            console.error('Failed to load dynamic content', error);
+        }
+    }
+    loadDynamicContent();
+
     // ────── NAVBAR SCROLL ──────
     const navbar = document.getElementById('navbar');
     const navLinks = document.querySelectorAll('.nav-link');
@@ -411,18 +455,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Submit via fetch (AJAX)
         const formData = new FormData(consultForm);
+        const jsonData = {
+            name: formData.get('Full Name'),
+            phone: formData.get('Mobile Number'),
+            email: formData.get('Email'),
+            message: `Topic: ${formData.get('Case Topic') || 'None'}\n\n${formData.get('Message') || 'No description provided.'}`
+        };
 
         fetch(consultForm.action, {
             method: 'POST',
-            body: formData,
+            body: JSON.stringify(jsonData),
             headers: {
+                'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
         })
-        .then(response => {
-            // Show success
-            consultForm.style.display = 'none';
-            formSuccess.classList.add('show');
+        .then(response => response.json())
+        .then(data => {
+            if(data.success) {
+                // Show success
+                consultForm.style.display = 'none';
+                formSuccess.classList.add('show');
+            } else {
+                alert('Failed to send message. Please try again.');
+            }
             submitBtn.classList.remove('loading');
             submitBtn.disabled = false;
         })

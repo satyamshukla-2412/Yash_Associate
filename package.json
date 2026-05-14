@@ -1,0 +1,12 @@
+{
+  "name": "yash-associate",
+  "version": "1.0.0",
+  "description": "Yash Associate Law Firm Website",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo \"No build step required\""
+  },
+  "dependencies": {
+    "mongodb": "^6.5.0"
+  }
+}
