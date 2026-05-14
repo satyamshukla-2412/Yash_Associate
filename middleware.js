@@ -3,24 +3,32 @@ export const config = {
 };
 
 export default function middleware(request) {
-  const basicAuth = request.headers.get('authorization');
+  const url = new URL(request.url);
   
-  if (basicAuth) {
-    const authValue = basicAuth.split(' ')[1];
-    const decodedValue = atob(authValue);
-    const [user, pwd] = decodedValue.split(':');
-    
-    // Login Credentials
-    if (user === 'admin' && pwd === 'Yash@2026') {
-      return; // Authentication successful, let the request pass through
-    }
+  // By default /admin should point to /admin/index.html
+  if (url.pathname === '/admin') {
+    url.pathname = '/admin/index.html';
   }
 
-  // If not authenticated, prompt for credentials
-  return new Response('Authentication required to access the Admin Panel.', {
-    status: 401,
-    headers: {
-      'WWW-Authenticate': 'Basic realm="Secure Admin Area"'
+  // Allow access to the login page and its assets
+  if (url.pathname === '/admin/login.html' || url.pathname.endsWith('.css') || url.pathname.endsWith('.js') || url.pathname.includes('/ASSETS/')) {
+    // If user is already logged in and tries to access login.html, redirect to dashboard
+    const cookies = request.headers.get('cookie') || '';
+    if (url.pathname === '/admin/login.html' && cookies.includes('auth_token=yash_secure_token_xyz123')) {
+      url.pathname = '/admin/index.html';
+      return Response.redirect(url, 302);
     }
-  });
+    return;
+  }
+
+  // Check for the authentication cookie for all other /admin routes
+  const cookieHeader = request.headers.get('cookie') || '';
+  if (!cookieHeader.includes('auth_token=yash_secure_token_xyz123')) {
+    // Redirect to login page if not authenticated
+    url.pathname = '/admin/login.html';
+    return Response.redirect(url, 302);
+  }
+
+  // User is authenticated, allow request
+  return;
 }

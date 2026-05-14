@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Yash Associates</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-body">
+
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h2>Yash Associates</h2>
+                <p>Secure Admin Portal</p>
+            </div>
+            
+            <form id="loginForm" class="login-form">
+                <div class="error-message" id="errorMessage" style="display: none;"></div>
+                
+                <div class="input-group">
+                    <label for="username">Admin ID</label>
+                    <input type="text" id="username" name="username" required placeholder="Enter your ID">
+                </div>
+                
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required placeholder="••••••••">
+                </div>
+                
+                <button type="submit" class="btn-primary" id="loginBtn">
+                    <span class="btn-text">Authenticate</span>
+                    <span class="loader" id="loginLoader" style="display: none;"></span>
+                </button>
+            </form>
+            
+            <div class="login-footer">
+                <a href="/">&larr; Back to Main Website</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const btn = document.getElementById('loginBtn');
+            const loader = document.getElementById('loginLoader');
+            const btnText = document.querySelector('.btn-text');
+            const errorMsg = document.getElementById('errorMessage');
+            
+            btn.disabled = true;
+            btnText.style.display = 'none';
+            loader.style.display = 'inline-block';
+            errorMsg.style.display = 'none';
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    window.location.href = '/admin/index.html';
+                } else {
+                    errorMsg.textContent = data.error || 'Authentication failed. Please try again.';
+                    errorMsg.style.display = 'block';
+                    btn.disabled = false;
+                    btnText.style.display = 'inline-block';
+                    loader.style.display = 'none';
+                }
+            } catch (err) {
+                errorMsg.textContent = 'Network error. Please ensure you are running this on Vercel or a proper server.';
+                errorMsg.style.display = 'block';
+                btn.disabled = false;
+                btnText.style.display = 'inline-block';
+                loader.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

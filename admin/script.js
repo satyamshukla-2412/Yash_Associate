@@ -9,8 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-function logout() {
-    // Basic Auth logout is tricky, but sending a request with wrong credentials clears it in most modern browsers.
-    // However, the cleanest way to force a logout with HTTP Basic Auth is to redirect to the same URL with intentionally invalid credentials.
-    window.location.href = 'https://logout@' + window.location.host + '/admin';
+async function logout() {
+    try {
+        await fetch('/api/logout', { method: 'POST' });
+        window.location.href = '/admin/login.html';
+    } catch (e) {
+        window.location.href = '/admin/login.html';
+    }
 }
