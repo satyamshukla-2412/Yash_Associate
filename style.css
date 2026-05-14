@@ -3406,10 +3406,12 @@ body.menu-open {
 }
 
 .floating-action {
-    min-width: 112px;
-    min-height: 44px;
-    padding: 0.65rem 0.9rem;
-    border-radius: 999px;
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    min-height: 56px;
+    padding: 0;
+    border-radius: 50%;
     font-size: 0.78rem;
     font-weight: 700;
     letter-spacing: 0.05em;
@@ -3423,10 +3425,14 @@ body.menu-open {
 }
 
 .combined-action {
-    min-width: 172px;
     background: linear-gradient(135deg, #2b5876, #27ae60);
     border: 0;
     cursor: pointer;
+}
+
+.floating-action svg {
+    width: 24px;
+    height: 24px;
 }
 
 .call-action {
@@ -3435,6 +3441,18 @@ body.menu-open {
 
 .whatsapp-action {
     background: linear-gradient(135deg, #1f8d4f, #27ae60);
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 @media (max-width: 768px) {
@@ -3459,6 +3477,9 @@ body.menu-open {
     }
 
     .floating-action {
-        min-height: 48px;
+        width: 52px;
+        height: 52px;
+        min-width: 52px;
+        min-height: 52px;
     }
 }

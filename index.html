@@ -677,10 +677,25 @@
     </footer>
 
     <div class="floating-actions" aria-label="Quick Contact Actions">
-        <button type="button" class="floating-action combined-action" id="quickContactToggle" aria-expanded="false" aria-controls="quickContactMenu">Call / WhatsApp</button>
+        <button type="button" class="floating-action combined-action" id="quickContactToggle" aria-expanded="false" aria-controls="quickContactMenu">
+            <span class="sr-only">Open Call and WhatsApp options</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24c1.1.36 2.3.55 3.6.55a1 1 0 0 1 1 1V21a1 1 0 0 1-1 1C10.4 22 2 13.6 2 3a1 1 0 0 1 1-1h4.5a1 1 0 0 1 1 1c0 1.3.2 2.5.56 3.6a1 1 0 0 1-.25 1z" fill="currentColor"/>
+            </svg>
+        </button>
         <div class="floating-menu" id="quickContactMenu" aria-hidden="true">
-            <a href="tel:9323282940" class="floating-action call-action" aria-label="Call">Call</a>
-            <a href="https://wa.me/919323282940" target="_blank" rel="noopener noreferrer" class="floating-action whatsapp-action" aria-label="WhatsApp">WhatsApp</a>
+            <a href="tel:9323282940" class="floating-action call-action" aria-label="Call">
+                <span class="sr-only">Call</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24c1.1.36 2.3.55 3.6.55a1 1 0 0 1 1 1V21a1 1 0 0 1-1 1C10.4 22 2 13.6 2 3a1 1 0 0 1 1-1h4.5a1 1 0 0 1 1 1c0 1.3.2 2.5.56 3.6a1 1 0 0 1-.25 1z" fill="currentColor"/>
+                </svg>
+            </a>
+            <a href="https://wa.me/919323282940" target="_blank" rel="noopener noreferrer" class="floating-action whatsapp-action" aria-label="WhatsApp">
+                <span class="sr-only">WhatsApp</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20.5 3.5A11.9 11.9 0 0 0 12.02 0C5.4 0 .02 5.37.02 11.99c0 2.1.55 4.14 1.6 5.95L0 24l6.22-1.63a12 12 0 0 0 5.8 1.48h.01c6.62 0 12-5.37 12-11.99 0-3.2-1.25-6.2-3.53-8.36zM12.03 21.8a9.8 9.8 0 0 1-5-1.37l-.36-.22-3.69.97.99-3.6-.24-.37a9.8 9.8 0 0 1-1.52-5.22c0-5.43 4.42-9.85 9.86-9.85 2.63 0 5.1 1.02 6.96 2.88a9.8 9.8 0 0 1 2.89 6.97c0 5.43-4.42 9.84-9.85 9.84zm5.4-7.37c-.3-.15-1.77-.87-2.05-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.46-.88-.79-1.47-1.77-1.64-2.06-.17-.3-.02-.46.12-.6.13-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.62-.92-2.22-.24-.58-.48-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.47 1.06 2.88 1.2 3.08.15.2 2.1 3.2 5.08 4.5.71.31 1.27.5 1.7.64.72.23 1.37.2 1.88.12.57-.09 1.77-.72 2.03-1.42.25-.7.25-1.3.18-1.42-.08-.12-.28-.2-.58-.35z" fill="currentColor"/>
+                </svg>
+            </a>
         </div>
     </div>
 
