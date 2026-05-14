@@ -3384,8 +3384,6 @@ body.menu-open {
     bottom: 1rem;
     z-index: 998;
     display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
 }
 
 .floating-action {
@@ -3405,12 +3403,9 @@ body.menu-open {
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
 }
 
-.call-action {
-    background: linear-gradient(135deg, #2b5876, #4e4376);
-}
-
-.whatsapp-action {
-    background: linear-gradient(135deg, #1f8d4f, #27ae60);
+.combined-action {
+    min-width: 172px;
+    background: linear-gradient(135deg, #2b5876, #27ae60);
 }
 
 @media (max-width: 768px) {
