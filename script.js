@@ -7,9 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ────── PRELOADER ──────
     const preloader = document.getElementById('preloader');
-    // Keep branded entry visible for at least 3 seconds
+    // Keep branded entry visible for at least 1.5 seconds
     const preloaderStart = Date.now();
-    const minPreloaderMs = 3000;
+    const minPreloaderMs = 1500;
     let preloaderHidden = false;
 
     function hidePreloader() {
