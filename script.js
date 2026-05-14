@@ -442,6 +442,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const consultForm = document.getElementById('consultationForm');
     const formSuccess = document.getElementById('formSuccess');
     const submitBtn = document.getElementById('formSubmitBtn');
+    const quickContactWrap = document.querySelector('.floating-actions');
+    const quickContactToggle = document.getElementById('quickContactToggle');
+    const quickContactMenu = document.getElementById('quickContactMenu');
 
     let modalScrollPos = 0;
 
@@ -485,6 +488,31 @@ document.addEventListener('DOMContentLoaded', () => {
             closeModal();
         }
     });
+
+    // Quick contact toggle menu
+    if (quickContactWrap && quickContactToggle && quickContactMenu) {
+        quickContactToggle.addEventListener('click', () => {
+            const isOpen = quickContactWrap.classList.toggle('open');
+            quickContactToggle.setAttribute('aria-expanded', String(isOpen));
+            quickContactMenu.setAttribute('aria-hidden', String(!isOpen));
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!quickContactWrap.contains(e.target)) {
+                quickContactWrap.classList.remove('open');
+                quickContactToggle.setAttribute('aria-expanded', 'false');
+                quickContactMenu.setAttribute('aria-hidden', 'true');
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                quickContactWrap.classList.remove('open');
+                quickContactToggle.setAttribute('aria-expanded', 'false');
+                quickContactMenu.setAttribute('aria-hidden', 'true');
+            }
+        });
+    }
 
     // ────── FORM VALIDATION & SUBMISSION ──────
     // Only allow digits in mobile field
