@@ -3428,6 +3428,21 @@ body.menu-open {
     background: linear-gradient(135deg, #2b5876, #27ae60);
     border: 0;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    animation: quick-float 3.2s ease-in-out infinite;
+}
+
+.combined-action::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    left: -120%;
+    width: 70%;
+    height: 160%;
+    background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.45) 45%, transparent 100%);
+    transform: rotate(18deg);
+    animation: quick-shine 2.8s ease-in-out infinite;
 }
 
 .floating-action svg {
@@ -3453,6 +3468,31 @@ body.menu-open {
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+}
+
+@keyframes quick-float {
+    0%, 100% {
+        transform: translateY(0);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+    }
+    50% {
+        transform: translateY(-4px);
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.4);
+    }
+}
+
+@keyframes quick-shine {
+    0%, 55% {
+        left: -120%;
+        opacity: 0;
+    }
+    62% {
+        opacity: 1;
+    }
+    100% {
+        left: 140%;
+        opacity: 0;
+    }
 }
 
 @media (max-width: 768px) {
