@@ -55,7 +55,10 @@ async function fetchMessages() {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td>${msg.name}</td>
-                    <td>${msg.email}<br><small>${msg.phone}</small></td>
+                    <td>
+                        <a href="mailto:${msg.email}" style="color:var(--gold-light); text-decoration:none;">${msg.email}</a><br>
+                        <small><a href="tel:${msg.phone}" style="color:var(--text-secondary); text-decoration:none;">${msg.phone}</a></small>
+                    </td>
                     <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${msg.message}">${msg.message}</td>
                     <td>${date}</td>
                     <td>
