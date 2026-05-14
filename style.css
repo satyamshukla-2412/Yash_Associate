@@ -3329,3 +3329,112 @@ body.menu-open {
         padding: 2rem 0;
     }
 }
+
+/* ====================================================
+   UX QUICK WINS (Phase 1)
+   ==================================================== */
+.hero-trust-strip {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(120px, 1fr));
+    gap: 0.8rem;
+}
+
+.trust-item {
+    background: rgba(18, 16, 14, 0.65);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 0.8rem 0.9rem;
+    text-align: center;
+}
+
+.trust-item strong {
+    display: block;
+    color: var(--gold-light);
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+}
+
+.trust-item span {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.contact-quick-actions {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.85rem;
+}
+
+.contact-response-note {
+    margin-bottom: 1.2rem;
+    color: var(--gold-light);
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.floating-actions {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 998;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.floating-action {
+    min-width: 112px;
+    min-height: 44px;
+    padding: 0.65rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+.call-action {
+    background: linear-gradient(135deg, #2b5876, #4e4376);
+}
+
+.whatsapp-action {
+    background: linear-gradient(135deg, #1f8d4f, #27ae60);
+}
+
+@media (max-width: 768px) {
+    .hero-trust-strip {
+        grid-template-columns: 1fr;
+        width: 100%;
+        max-width: 320px;
+        margin: 1.15rem auto 0;
+    }
+
+    .contact-quick-actions {
+        justify-content: center;
+    }
+
+    .contact-response-note {
+        text-align: center;
+    }
+
+    .floating-actions {
+        right: 0.75rem;
+        bottom: 0.75rem;
+    }
+
+    .floating-action {
+        min-height: 48px;
+    }
+}

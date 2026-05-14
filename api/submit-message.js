@@ -8,8 +8,8 @@ module.exports = async function(req, res) {
   try {
     const { name, email, phone, message } = req.body;
 
-    if (!name || !email || !message) {
-      return res.status(400).json({ error: 'Name, email, and message are required' });
+    if (!name || !phone) {
+      return res.status(400).json({ error: 'Name and phone are required' });
     }
 
     const db = await getDb();
@@ -17,9 +17,9 @@ module.exports = async function(req, res) {
     
     const newMessage = {
       name,
-      email,
-      phone: phone || '',
-      message,
+      email: email || '',
+      phone,
+      message: message || '',
       date: new Date().toISOString(),
       status: 'new' // 'new', 'read', 'replied'
     };
