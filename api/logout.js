@@ -1,4 +1,4 @@
-export default function handler(req, res) {
+module.exports = function(req, res) {
   // Clear the cookie by setting Max-Age to 0
   res.setHeader('Set-Cookie', 'auth_token=; Path=/; HttpOnly; Secure; Max-Age=0; SameSite=Strict');
   
