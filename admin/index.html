@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Yash Associates</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Yash Associates</h2>
+                <p>Admin Panel</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active">Dashboard</a>
+                <a href="#" class="nav-item">Client Messages</a>
+                <a href="#" class="nav-item">Manage Practice Areas</a>
+                <a href="#" class="nav-item">Team Members</a>
+                <a href="#" class="nav-item">Settings</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header">
+                <h1>Welcome, Admin</h1>
+                <div class="date-display" id="currentDate"></div>
+            </header>
+
+            <section class="dashboard-stats">
+                <div class="stat-card">
+                    <h3>Total Visitors</h3>
+                    <p class="stat-number">1,204</p>
+                </div>
+                <div class="stat-card">
+                    <h3>New Messages</h3>
+                    <p class="stat-number">12</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Active Cases</h3>
+                    <p class="stat-number">45</p>
+                </div>
+            </section>
+
+            <section class="recent-activity">
+                <h2>Recent Messages</h2>
+                <div class="activity-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Rahul Sharma</td>
+                                <td>rahul@example.com</td>
+                                <td>14 May 2026</td>
+                                <td><span class="badge new">New</span></td>
+                            </tr>
+                            <tr>
+                                <td>Priya Patel</td>
+                                <td>priya@example.com</td>
+                                <td>13 May 2026</td>
+                                <td><span class="badge read">Read</span></td>
+                            </tr>
+                            <tr>
+                                <td>Amit Kumar</td>
+                                <td>amit@example.com</td>
+                                <td>12 May 2026</td>
+                                <td><span class="badge replied">Replied</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
