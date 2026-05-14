@@ -7,13 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ────── PRELOADER ──────
     const preloader = document.getElementById('preloader');
+    // Fast perceived load: hide quickly, then guarantee hide on full load
+    setTimeout(() => preloader.classList.add('hidden'), 600);
     window.addEventListener('load', () => {
-        setTimeout(() => {
-            preloader.classList.add('hidden');
-        }, 2200);
+        preloader.classList.add('hidden');
     });
-    // Fallback: hide preloader after 4s no matter what
-    setTimeout(() => preloader.classList.add('hidden'), 4000);
+    // Safety fallback
+    setTimeout(() => preloader.classList.add('hidden'), 1200);
 
     // ────── FETCH DYNAMIC CONTENT FROM DB ──────
     async function loadDynamicContent() {
