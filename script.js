@@ -7,13 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ────── PRELOADER ──────
     const preloader = document.getElementById('preloader');
-    // Fast perceived load: hide quickly, then guarantee hide on full load
-    setTimeout(() => preloader.classList.add('hidden'), 600);
+    // Keep branded entry visible for ~3 seconds
+    setTimeout(() => preloader.classList.add('hidden'), 3000);
     window.addEventListener('load', () => {
         preloader.classList.add('hidden');
     });
     // Safety fallback
-    setTimeout(() => preloader.classList.add('hidden'), 1200);
+    setTimeout(() => preloader.classList.add('hidden'), 3500);
 
     // ────── FETCH DYNAMIC CONTENT FROM DB ──────
     async function loadDynamicContent() {
