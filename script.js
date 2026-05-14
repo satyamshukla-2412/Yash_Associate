@@ -52,6 +52,80 @@ document.addEventListener('DOMContentLoaded', () => {
                     const emailEl = document.getElementById('db-email');
                     if(emailEl) emailEl.innerHTML = `<a href="mailto:${data.email}">${data.email}</a>`;
                 }
+
+                // Update Images
+                const images = ['heroBgImg', 'heroPortraitImg', 'aboutBgImg', 'aboutPortraitImg', 'practiceBgImg', 'courtsBgImg', 'clientsBgImg', 'teamBgImg', 'dividerBgImg'];
+                images.forEach(img => {
+                    if (data[img]) {
+                        const el = document.getElementById('db-' + img);
+                        if (el) el.src = data[img];
+                    }
+                });
+
+                // Update Practice Areas
+                if (data.practiceAreasText) {
+                    const grid = document.getElementById('db-practiceGrid');
+                    if (grid) {
+                        const areas = data.practiceAreasText.split('\n').filter(l => l.trim());
+                        let html = '';
+                        areas.forEach((area, index) => {
+                            const parts = area.split('|');
+                            const title = parts[0];
+                            const desc = parts.slice(1).join('|');
+                            html += `
+                            <div class="practice-card stagger-${(index%9)+1}" data-scroll="reveal" data-tilt style="transform: perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0px);">
+                                <div class="card-inner">
+                                    <div class="card-front">
+                                        <div class="card-icon" style="font-size:2rem; margin-bottom:15px; color:var(--gold);">✦</div>
+                                        <h3>${title}</h3>
+                                        <p>${desc || ''}</p>
+                                    </div>
+                                </div>
+                            </div>`;
+                        });
+                        grid.innerHTML = html;
+                    }
+                }
+
+                // Update Courts
+                if (data.courtsText) {
+                    const grid = document.getElementById('db-courtsGrid');
+                    if (grid) {
+                        const courts = data.courtsText.split('\n').filter(l => l.trim());
+                        let html = '';
+                        courts.forEach((court, index) => {
+                            const parts = court.split('|');
+                            const title = parts[0];
+                            const desc = parts.slice(1).join('|');
+                            const num = (index + 1).toString().padStart(2, '0');
+                            html += `
+                            <div class="court-card" style="opacity:1; transform:translateY(0); filter:blur(0);">
+                                <div class="court-rank">${num}</div>
+                                <h3>${title}</h3>
+                                <p>${desc || ''}</p>
+                            </div>`;
+                        });
+                        grid.innerHTML = html;
+                    }
+                }
+
+                // Update Clients
+                if (data.clientsText) {
+                    const marquee = document.getElementById('db-clientsMarquee');
+                    if (marquee) {
+                        const clients = data.clientsText.split(',').map(c => c.trim()).filter(c => c);
+                        const allClients = [...clients, ...clients]; // Duplicate for scrolling
+                        let html = '';
+                        allClients.forEach(client => {
+                            html += `<div class="client-item">${client}</div>`;
+                        });
+                        marquee.innerHTML = html;
+                    }
+                }
+
+                // Update Team
+                update('db-teamCount', data.teamCount);
+                update('db-teamText', data.teamText);
             }
         } catch (error) {
             console.error('Failed to load dynamic content', error);

@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-function switchTab(tabId) {
+function switchMainTab(tabId) {
     document.getElementById('dashboardTab').style.display = tabId === 'dashboard' ? 'block' : 'none';
     document.getElementById('editorTab').style.display = tabId === 'editor' ? 'block' : 'none';
     document.getElementById('pageTitle').textContent = tabId === 'dashboard' ? 'Messages' : 'Website Editor';
@@ -30,7 +30,7 @@ function switchTab(tabId) {
     // Update active class
     const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(item => item.classList.remove('active'));
-    event.target.classList.add('active');
+    event.target.closest('.nav-item').classList.add('active');
 }
 
 async function fetchMessages() {
@@ -96,14 +96,38 @@ async function fetchCMSContent() {
         
         if (data.success && data.data) {
             const content = data.data;
-            document.getElementById('heroTitle').value = content.heroTitle || '';
-            document.getElementById('heroSubtitle').value = content.heroSubtitle || '';
-            document.getElementById('heroDescription').value = content.heroDescription || '';
-            document.getElementById('aboutTitle').value = content.aboutTitle || '';
-            document.getElementById('aboutText').value = content.aboutText || '';
-            document.getElementById('address').value = content.address || '';
-            document.getElementById('phone').value = content.phone || '';
-            document.getElementById('email').value = content.email || '';
+            const setVal = (id, field) => {
+                const el = document.getElementById(id);
+                if (el) el.value = content[field] || '';
+            };
+
+            // Texts
+            setVal('heroTitle', 'heroTitle');
+            setVal('heroSubtitle', 'heroSubtitle');
+            setVal('heroDescription', 'heroDescription');
+            setVal('aboutTitle', 'aboutTitle');
+            setVal('aboutText', 'aboutText');
+            setVal('teamCount', 'teamCount');
+            setVal('teamText', 'teamText');
+            setVal('address', 'address');
+            setVal('phone', 'phone');
+            setVal('email', 'email');
+
+            // Images
+            setVal('heroBgImg', 'heroBgImg');
+            setVal('heroPortraitImg', 'heroPortraitImg');
+            setVal('aboutBgImg', 'aboutBgImg');
+            setVal('aboutPortraitImg', 'aboutPortraitImg');
+            setVal('practiceBgImg', 'practiceBgImg');
+            setVal('courtsBgImg', 'courtsBgImg');
+            setVal('clientsBgImg', 'clientsBgImg');
+            setVal('teamBgImg', 'teamBgImg');
+            setVal('dividerBgImg', 'dividerBgImg');
+
+            // Lists
+            setVal('practiceAreasText', 'practiceAreasText');
+            setVal('courtsText', 'courtsText');
+            setVal('clientsText', 'clientsText');
         }
     } catch (e) {
         console.error('Failed to load CMS content');
@@ -120,15 +144,37 @@ async function saveCMSContent() {
     btnText.style.display = 'none';
     loader.style.display = 'inline-block';
     
+    const getVal = (id) => {
+        const el = document.getElementById(id);
+        return el ? el.value : '';
+    };
+
     const content = {
-        heroTitle: document.getElementById('heroTitle').value,
-        heroSubtitle: document.getElementById('heroSubtitle').value,
-        heroDescription: document.getElementById('heroDescription').value,
-        aboutTitle: document.getElementById('aboutTitle').value,
-        aboutText: document.getElementById('aboutText').value,
-        address: document.getElementById('address').value,
-        phone: document.getElementById('phone').value,
-        email: document.getElementById('email').value
+        // Texts
+        heroTitle: getVal('heroTitle'),
+        heroSubtitle: getVal('heroSubtitle'),
+        heroDescription: getVal('heroDescription'),
+        aboutTitle: getVal('aboutTitle'),
+        aboutText: getVal('aboutText'),
+        teamCount: getVal('teamCount'),
+        teamText: getVal('teamText'),
+        address: getVal('address'),
+        phone: getVal('phone'),
+        email: getVal('email'),
+        // Images
+        heroBgImg: getVal('heroBgImg'),
+        heroPortraitImg: getVal('heroPortraitImg'),
+        aboutBgImg: getVal('aboutBgImg'),
+        aboutPortraitImg: getVal('aboutPortraitImg'),
+        practiceBgImg: getVal('practiceBgImg'),
+        courtsBgImg: getVal('courtsBgImg'),
+        clientsBgImg: getVal('clientsBgImg'),
+        teamBgImg: getVal('teamBgImg'),
+        dividerBgImg: getVal('dividerBgImg'),
+        // Lists
+        practiceAreasText: getVal('practiceAreasText'),
+        courtsText: getVal('courtsText'),
+        clientsText: getVal('clientsText')
     };
 
     try {
