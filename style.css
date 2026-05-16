@@ -319,6 +319,10 @@ h6 {
     font-weight: 600;
     border-radius: 100px;
     padding: 0.5rem 1.35rem;
+    margin-left: 0;
+}
+
+.nav-links li:last-child {
     margin-left: 0.6rem;
 }
 
@@ -368,12 +372,17 @@ h6 {
     }
 
     .cta-link {
-        margin-top: 0.75rem;
+        margin-top: 0;
         margin-left: 0;
         padding: 0.78rem 1.7rem;
         font-size: 1.15rem;
         border-radius: 999px;
         box-shadow: 0 8px 28px rgba(201, 168, 76, 0.25);
+    }
+
+    .nav-links li:last-child {
+        margin-left: 0;
+        margin-top: 1rem;
     }
 }
 
@@ -961,6 +970,119 @@ section {
 }
 
 /* ====================================================
+   INTERNSHIP SECTION
+   ==================================================== */
+.internship-section {
+    position: relative;
+    padding: 8rem 0;
+    background: linear-gradient(180deg, #15120f 0%, #120f0d 100%);
+    overflow: hidden;
+}
+
+.internship-section .container {
+    position: relative;
+    z-index: 1;
+}
+
+.internship-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.internship-content {
+    display: grid;
+    gap: 1.2rem;
+}
+
+.internship-panel {
+    background: rgba(20, 17, 14, 0.72);
+    border: 1px solid rgba(201, 168, 76, 0.2);
+    border-radius: 16px;
+    padding: 1.4rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.internship-panel h3 {
+    color: var(--cream);
+    font-size: 1.25rem;
+    margin-bottom: 0.65rem;
+}
+
+.internship-panel h4 {
+    color: var(--gold-light);
+    font-size: 0.95rem;
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.internship-list {
+    display: grid;
+    gap: 0.45rem;
+}
+
+.internship-list li {
+    color: var(--text-secondary);
+    position: relative;
+    padding-left: 1rem;
+}
+
+.internship-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 0.38rem;
+    height: 0.38rem;
+    border-radius: 999px;
+    background: var(--gold);
+    box-shadow: 0 0 12px rgba(201, 168, 76, 0.5);
+}
+
+.internship-panel.two-col {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.internship-note {
+    color: var(--text-secondary);
+    margin-bottom: 0.45rem;
+}
+
+.limited-note {
+    display: inline-block;
+    color: var(--gold-light);
+    background: rgba(201, 168, 76, 0.12);
+    border: 1px solid rgba(201, 168, 76, 0.26);
+    border-radius: 999px;
+    padding: 0.45rem 0.9rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+}
+
+.internship-form-wrap {
+    background: linear-gradient(165deg, rgba(26, 23, 20, 0.96), rgba(18, 16, 14, 0.98));
+    border: 1px solid rgba(201, 168, 76, 0.26);
+    border-radius: 18px;
+    padding: 1.5rem 1.25rem;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+}
+
+.internship-form {
+    display: grid;
+    gap: 0.95rem;
+}
+
+.internship-form h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.35rem;
+}
+
+/* ====================================================
    PRACTICE AREAS
    ==================================================== */
 .practice-section {
@@ -968,6 +1090,13 @@ section {
     position: relative;
     overflow: hidden;
     background: var(--navy);
+    content-visibility: auto;
+    contain-intrinsic-size: 1000px;
+    contain: layout paint style;
+}
+
+.practice-section .section-bg-img {
+    transform: translateZ(0);
 }
 
 .practice-section .container {
@@ -2374,6 +2503,10 @@ body.menu-open {
         gap: 3rem;
     }
 
+    .internship-grid {
+        grid-template-columns: 1fr;
+    }
+
     .about-image-wrapper {
         max-width: 380px;
         margin: 0 auto;
@@ -2482,7 +2615,12 @@ body.menu-open {
     .cta-link {
         width: auto;
         min-width: 180px;
-        margin-top: 0.5rem;
+        margin-top: 0;
+    }
+
+    .nav-links li:last-child {
+        margin-left: 0;
+        margin-top: 1rem;
     }
 
     /* ----- HERO ----- */
@@ -3467,6 +3605,14 @@ body.menu-open {
         width: 100%;
         max-width: 320px;
         margin: 1.15rem auto 0;
+    }
+
+    .internship-panel.two-col {
+        grid-template-columns: 1fr;
+    }
+
+    .internship-form-wrap {
+        padding: 1.2rem 1rem;
     }
 
     .contact-quick-actions {
