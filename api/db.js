@@ -1,21 +1,17 @@
 const { MongoClient } = require('mongodb');
 
-// Use environment variable if available, otherwise fallback to the provided connection string
-const uri = process.env.MONGODB_URI || "mongodb+srv://ankitshu2006_db_user:tw21QYEp745v2Ivn@yashassociate.9kbmy5l.mongodb.net/?retryWrites=true&w=majority&appName=Yashassociate";
+const uri = process.env.MONGODB_URI || "mongodb://ankitshu2006_db_user:tw21QYEp745v2Ivn@ac-uvds664-shard-00-00.9kbmy5l.mongodb.net:27017,ac-uvds664-shard-00-01.9kbmy5l.mongodb.net:27017,ac-uvds664-shard-00-02.9kbmy5l.mongodb.net:27017/yash_associate_db?ssl=true&authSource=admin&retryWrites=true&w=majority&appName=Yashassociate";
 
 const options = {};
 
 let client;
-let clientPromise;
-
-if (!global._mongoClientPromise) {
-  client = new MongoClient(uri, options);
-  global._mongoClientPromise = client.connect();
-}
-clientPromise = global._mongoClientPromise;
 
 async function getDb() {
-  const connectedClient = await clientPromise;
+  if (!global._mongoClientPromise) {
+    client = new MongoClient(uri, options);
+    global._mongoClientPromise = client.connect();
+  }
+  const connectedClient = await global._mongoClientPromise;
   // Use a specific database name
   return connectedClient.db('yash_associate_db');
 }

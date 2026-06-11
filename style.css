@@ -1912,11 +1912,31 @@ section {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
 }
 
 .footer-bottom p {
     font-size: 0.75rem;
     color: var(--text-muted);
+}
+
+.footer-disclaimer-note {
+    width: 100%;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(201, 168, 76, 0.15);
+    text-align: center;
+    line-height: 1.6;
+}
+
+.footer-disclaimer-note a {
+    color: var(--gold);
+    font-weight: 600;
+}
+
+.footer-disclaimer-note a:hover {
+    color: var(--gold-light);
 }
 
 /* ====================================================
