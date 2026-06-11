@@ -79,23 +79,39 @@ document.addEventListener('DOMContentLoaded', () => {
                     const grid = document.getElementById('db-practiceGrid');
                     if (grid) {
                         const areas = data.practiceAreasText.split('\n').filter(l => l.trim());
-                        let html = '';
+                        const cards = grid.querySelectorAll('.practice-card');
+                        
                         areas.forEach((area, index) => {
                             const parts = area.split('|');
                             const title = parts[0];
                             const desc = parts.slice(1).join('|');
-                            html += `
-                            <div class="practice-card stagger-${(index%9)+1}" data-scroll="reveal" data-tilt style="transform: perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0px);">
+                            
+                            if (cards[index]) {
+                                const h3 = cards[index].querySelector('h3');
+                                const p = cards[index].querySelector('p');
+                                if (h3) h3.textContent = title;
+                                if (p) p.textContent = desc;
+                            } else {
+                                const newCard = document.createElement('div');
+                                newCard.className = `practice-card stagger-${(index%9)+1}`;
+                                newCard.setAttribute('data-scroll', 'reveal');
+                                newCard.setAttribute('data-tilt', '');
+                                newCard.innerHTML = `
                                 <div class="card-inner">
                                     <div class="card-front">
                                         <div class="card-icon" style="font-size:2rem; margin-bottom:15px; color:var(--gold);">✦</div>
                                         <h3>${title}</h3>
                                         <p>${desc || ''}</p>
                                     </div>
-                                </div>
-                            </div>`;
+                                </div>`;
+                                grid.appendChild(newCard);
+                            }
                         });
-                        grid.innerHTML = html;
+                        
+                        // Remove extra cards if any
+                        for (let i = areas.length; i < cards.length; i++) {
+                            cards[i].remove();
+                        }
                     }
                 }
 
