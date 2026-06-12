@@ -3,7 +3,7 @@
    Scroll Animations | Parallax | 3D Tilt | Counters
    ==================================================== */
 
-document.addEventListener('DOMContentLoaded', () => {
+function initializeApp() {
 
     // ────── PRELOADER ──────
     const preloader = document.getElementById('preloader');
@@ -15,17 +15,26 @@ document.addEventListener('DOMContentLoaded', () => {
     function hidePreloader() {
         if (preloaderHidden) return;
         preloaderHidden = true;
-        preloader.classList.add('hidden');
+        if (preloader) {
+            preloader.classList.add('hidden');
+        }
     }
 
-    window.addEventListener('load', () => {
+    // If window is already loaded, hide immediately or after min time
+    if (document.readyState === 'complete') {
         const elapsed = Date.now() - preloaderStart;
         const remaining = Math.max(0, minPreloaderMs - elapsed);
         setTimeout(hidePreloader, remaining);
-    });
+    } else {
+        window.addEventListener('load', () => {
+            const elapsed = Date.now() - preloaderStart;
+            const remaining = Math.max(0, minPreloaderMs - elapsed);
+            setTimeout(hidePreloader, remaining);
+        });
+    }
 
     // Safety fallback if load event is delayed
-    setTimeout(hidePreloader, 4500);
+    setTimeout(hidePreloader, 3000); // Shorter fallback (3s) for better UX
 
     // ────── FETCH DYNAMIC CONTENT FROM DB ──────
     async function loadDynamicContent() {
@@ -621,15 +630,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ────── EXPANDABLE HIGH COURT CARD ──────
-    const highCourtCard = document.getElementById('highCourtCard');
-    if (highCourtCard) {
-        highCourtCard.addEventListener('click', () => {
-            highCourtCard.classList.toggle('expanded');
-        });
-    }
-
     // ────── INITIAL CALL ──────
     handleNavScroll();
     updateProgressBar();
-});
+}
+
+// Robust execution model
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeApp);
+} else {
+    initializeApp();
+}
