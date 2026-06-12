@@ -1895,15 +1895,6 @@ section {
     margin-bottom: 1rem;
 }
 
-.bar-council {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-}
-
-.bar-council strong {
-    color: var(--gold);
-}
-
 .footer-links-group h4 {
     font-family: var(--font-heading);
     font-size: 1rem;
