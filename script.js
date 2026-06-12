@@ -621,6 +621,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // ────── EXPANDABLE HIGH COURT CARD ──────
+    const highCourtCard = document.getElementById('highCourtCard');
+    if (highCourtCard) {
+        highCourtCard.addEventListener('click', () => {
+            highCourtCard.classList.toggle('expanded');
+        });
+    }
+
     // ────── INITIAL CALL ──────
     handleNavScroll();
     updateProgressBar();

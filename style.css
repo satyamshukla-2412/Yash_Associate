@@ -1327,9 +1327,28 @@ section {
 }
 
 .court-expandable.expanded .court-sub-list {
-    max-height: 350px;
+    max-height: 400px;
+    overflow-y: auto;
     opacity: 1;
     margin-top: 1rem;
+}
+
+.court-sub-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.court-sub-list::-webkit-scrollbar-track {
+    background: rgba(201, 168, 76, 0.05);
+    border-radius: 4px;
+}
+
+.court-sub-list::-webkit-scrollbar-thumb {
+    background: rgba(201, 168, 76, 0.3);
+    border-radius: 4px;
+}
+
+.court-sub-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(201, 168, 76, 0.5);
 }
 
 .court-sub-list ul {
