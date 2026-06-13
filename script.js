@@ -4,6 +4,59 @@
    ==================================================== */
 
 function initializeApp() {
+    const highCourtNames = [
+        'Bombay High Court',
+        'High Court of Bombay at Goa',
+        'Gujarat High Court',
+        'Allahabad High Court',
+        'Madhya Pradesh High Court',
+        'Jammu Kashmir & Ladakh High Court',
+        'Delhi High Court',
+        'Calcutta High Court',
+        'Madras High Court',
+        'Karnataka High Court',
+        'Kerala High Court',
+        'Punjab & Haryana High Court',
+        'Andhra Pradesh High Court',
+        'Bombay High Court - Aurangabad Bench',
+        'Bombay High Court - Nagpur Bench',
+        'Patna High Court',
+        'Rajasthan High Court',
+        'Himachal Pradesh High Court',
+        'Jharkhand High Court',
+        'Chhattisgarh High Court',
+        'Uttarakhand High Court',
+        'Orissa High Court',
+        'Gauhati High Court',
+        'Telangana High Court',
+        'Tripura High Court',
+        'Meghalaya High Court',
+        'Manipur High Court',
+        'Sikkim High Court'
+    ];
+
+    function escapeHtml(value) {
+        return String(value || '').replace(/[&<>"']/g, char => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;'
+        }[char]));
+    }
+
+    function renderHighCourtCard(num) {
+        const listItems = highCourtNames.map(court => `<li>${escapeHtml(court)}</li>`).join('');
+        return `
+                            <div class="court-card court-expandable" id="highCourtCard" tabindex="0" role="button" aria-expanded="false" aria-controls="highCourtList" style="opacity:1; transform:translateY(0); filter:blur(0);">
+                                <div class="court-rank">${num}</div>
+                                <h3>High Court</h3>
+                                <p>Bombay High Court <span class="court-more">+ More</span></p>
+                                <div class="court-sub-list" id="highCourtList">
+                                    <ul>${listItems}</ul>
+                                </div>
+                            </div>`;
+    }
 
     // ────── PRELOADER ──────
     const preloader = document.getElementById('preloader');
@@ -132,14 +185,18 @@ function initializeApp() {
                         let html = '';
                         courts.forEach((court, index) => {
                             const parts = court.split('|');
-                            const title = parts[0];
-                            const desc = parts.slice(1).join('|');
+                            const title = parts[0].trim();
+                            const desc = parts.slice(1).join('|').trim();
                             const num = (index + 1).toString().padStart(2, '0');
+                            if (title.toLowerCase() === 'high court') {
+                                html += renderHighCourtCard(num);
+                                return;
+                            }
                             html += `
                             <div class="court-card" style="opacity:1; transform:translateY(0); filter:blur(0);">
                                 <div class="court-rank">${num}</div>
-                                <h3>${title}</h3>
-                                <p>${desc || ''}</p>
+                                <h3>${escapeHtml(title)}</h3>
+                                <p>${escapeHtml(desc)}</p>
                             </div>`;
                         });
                         grid.innerHTML = html;
@@ -414,12 +471,21 @@ function initializeApp() {
     }
 
     // ────── EXPANDABLE HIGH COURT CARD ──────
-    const highCourtCard = document.getElementById('highCourtCard');
-    if (highCourtCard) {
-        highCourtCard.addEventListener('click', () => {
-            highCourtCard.classList.toggle('expanded');
-        });
-    }
+    document.addEventListener('click', event => {
+        const highCourtCard = event.target.closest('#highCourtCard');
+        if (!highCourtCard) return;
+        const isExpanded = highCourtCard.classList.toggle('expanded');
+        highCourtCard.setAttribute('aria-expanded', String(isExpanded));
+    });
+
+    document.addEventListener('keydown', event => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        const highCourtCard = event.target.closest('#highCourtCard');
+        if (!highCourtCard) return;
+        event.preventDefault();
+        const isExpanded = highCourtCard.classList.toggle('expanded');
+        highCourtCard.setAttribute('aria-expanded', String(isExpanded));
+    });
 
     // ────── SCROLL PROGRESS BAR ──────
     const progressBar = document.createElement('div');
