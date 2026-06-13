@@ -622,7 +622,7 @@
                 </div>
 
                 <div class="internship-form-wrap" data-scroll="reveal-flip">
-                    <form id="internshipApplyForm" class="internship-form" action="#" method="post" enctype="multipart/form-data">
+                    <form id="internshipApplyForm" class="internship-form" action="/api/submit-message" method="post">
                         <h3>Internship Application Form</h3>
 
                         <div class="form-group">
@@ -671,7 +671,11 @@
                             <input type="file" id="internResume" name="Upload Resume" class="form-input" accept=".pdf,.doc,.docx" required>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Apply For Internship</button>
+                        <button type="submit" class="btn btn-primary form-submit-btn" id="internshipSubmitBtn">
+                            <span class="submit-text">Apply For Internship</span>
+                            <span class="submit-loader" id="internshipSubmitLoader"></span>
+                        </button>
+                        <p class="form-status" id="internshipFormStatus" aria-live="polite"></p>
                     </form>
                 </div>
             </div>

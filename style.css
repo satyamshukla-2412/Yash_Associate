@@ -2359,6 +2359,22 @@ section {
     margin-top: 0.25rem;
 }
 
+.form-status {
+    min-height: 1.4rem;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.form-status.success {
+    color: var(--gold-light);
+}
+
+.form-status.error {
+    color: #e85d5d;
+}
+
 /* ---- Success State ---- */
 .modal-success {
     display: none;

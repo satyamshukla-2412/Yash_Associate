@@ -697,6 +697,78 @@ function initializeApp() {
     });
 
     // ────── INITIAL CALL ──────
+    const internshipForm = document.getElementById('internshipApplyForm');
+    const internshipSubmitBtn = document.getElementById('internshipSubmitBtn');
+    const internshipStatus = document.getElementById('internshipFormStatus');
+    const internshipPhoneInput = document.getElementById('internPhone');
+
+    if (internshipPhoneInput) {
+        internshipPhoneInput.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/[^0-9+ -]/g, '');
+        });
+    }
+
+    if (internshipForm && internshipSubmitBtn && internshipStatus) {
+        internshipForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            if (!internshipForm.checkValidity()) {
+                internshipForm.reportValidity();
+                return;
+            }
+
+            const formData = new FormData(internshipForm);
+            const resumeFile = formData.get('Upload Resume');
+            const resumeName = resumeFile && resumeFile.name ? resumeFile.name : 'Not provided';
+
+            const jsonData = {
+                name: formData.get('Full Name'),
+                phone: formData.get('Phone Number'),
+                email: formData.get('Email'),
+                message: [
+                    'Internship Application',
+                    `College: ${formData.get('College Name') || 'Not provided'}`,
+                    `Year/Semester: ${formData.get('Year/Semester') || 'Not provided'}`,
+                    `Preferred Duration: ${formData.get('Preferred Duration') || 'Not provided'}`,
+                    `Area Of Interest: ${formData.get('Area Of Interest') || 'Not provided'}`,
+                    `Resume File: ${resumeName}`
+                ].join('\n')
+            };
+
+            internshipStatus.textContent = '';
+            internshipStatus.className = 'form-status';
+            internshipSubmitBtn.classList.add('loading');
+            internshipSubmitBtn.disabled = true;
+
+            fetch(internshipForm.action, {
+                method: 'POST',
+                body: JSON.stringify(jsonData),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json().then(data => ({ ok: response.ok, data })))
+            .then(({ ok, data }) => {
+                if (!ok || !data.success) {
+                    throw new Error(data.error || 'Failed to submit application');
+                }
+
+                internshipForm.reset();
+                internshipStatus.textContent = 'Application sent successfully. Our team will contact you soon.';
+                internshipStatus.classList.add('success');
+            })
+            .catch(() => {
+                internshipStatus.textContent = 'Unable to send application right now. Please try again or contact us directly.';
+                internshipStatus.classList.add('error');
+            })
+            .finally(() => {
+                internshipSubmitBtn.classList.remove('loading');
+                internshipSubmitBtn.disabled = false;
+            });
+        });
+    }
+
     handleNavScroll();
     updateProgressBar();
 }
