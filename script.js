@@ -100,6 +100,15 @@ function initializeApp() {
                     const el = document.getElementById(id);
                     if (el && text) el.textContent = text;
                 };
+                const withPlus = value => {
+                    const text = String(value || '').trim();
+                    if (!text) return '';
+                    return text.endsWith('+') ? text : `${text}+`;
+                };
+                const normalizeMetricText = value => String(value || '')
+                    .replace(/\b20\+?\s+years/gi, '21+ years')
+                    .replace(/\b11\+?\s+(dedicated\s+)?legal professionals/gi, (match, prefix = '') => `11+ ${prefix || ''}legal professionals`)
+                    .replace(/\b8\+?\s+court/gi, '8+ court');
                 
                 // Update Hero
                 if (data.heroTitle) {
@@ -110,11 +119,11 @@ function initializeApp() {
                     }
                 }
                 update('db-heroSubtitle', data.heroSubtitle);
-                update('db-heroDescription', data.heroDescription);
+                update('db-heroDescription', normalizeMetricText(data.heroDescription));
                 
                 // Update About
                 update('db-aboutTitle', data.aboutTitle);
-                update('db-aboutText', data.aboutText);
+                update('db-aboutText', normalizeMetricText(data.aboutText));
                 
                 // Update Contact
                 update('db-address', data.address);
@@ -218,8 +227,8 @@ function initializeApp() {
                 }
 
                 // Update Team
-                update('db-teamCount', data.teamCount);
-                update('db-teamText', data.teamText);
+                update('db-teamCount', withPlus(data.teamCount));
+                update('db-teamText', normalizeMetricText(data.teamText));
             }
         } catch (error) {
             console.error('Failed to load dynamic content', error);
