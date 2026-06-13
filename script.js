@@ -700,6 +700,8 @@ function initializeApp() {
     const internshipForm = document.getElementById('internshipApplyForm');
     const internshipSubmitBtn = document.getElementById('internshipSubmitBtn');
     const internshipStatus = document.getElementById('internshipFormStatus');
+    const internshipSuccess = document.getElementById('internshipSuccess');
+    const internshipApplyAgainBtn = document.getElementById('internshipApplyAgainBtn');
     const internshipPhoneInput = document.getElementById('internPhone');
 
     if (internshipPhoneInput) {
@@ -708,7 +710,17 @@ function initializeApp() {
         });
     }
 
-    if (internshipForm && internshipSubmitBtn && internshipStatus) {
+    if (internshipApplyAgainBtn && internshipForm && internshipSuccess && internshipStatus) {
+        internshipApplyAgainBtn.addEventListener('click', () => {
+            internshipSuccess.classList.remove('show');
+            internshipForm.style.display = '';
+            internshipStatus.textContent = '';
+            internshipStatus.className = 'form-status';
+            document.getElementById('internFullName')?.focus();
+        });
+    }
+
+    if (internshipForm && internshipSubmitBtn && internshipStatus && internshipSuccess) {
         internshipForm.addEventListener('submit', function (e) {
             e.preventDefault();
 
@@ -755,8 +767,8 @@ function initializeApp() {
                 }
 
                 internshipForm.reset();
-                internshipStatus.textContent = 'Application sent successfully. Our team will contact you soon.';
-                internshipStatus.classList.add('success');
+                internshipForm.style.display = 'none';
+                internshipSuccess.classList.add('show');
             })
             .catch(() => {
                 internshipStatus.textContent = 'Unable to send application right now. Please try again or contact us directly.';

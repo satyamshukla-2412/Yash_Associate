@@ -1082,6 +1082,39 @@ section {
     margin-bottom: 0.35rem;
 }
 
+.internship-success {
+    display: none;
+    min-height: 520px;
+    text-align: center;
+    place-items: center;
+    padding: 2.5rem 1rem;
+}
+
+.internship-success.show {
+    display: grid;
+    animation: fadeInUp 0.5s ease;
+}
+
+.internship-success-icon {
+    width: 86px;
+    height: 86px;
+    font-size: 2.4rem;
+    margin-bottom: 1.4rem;
+}
+
+.internship-success h3 {
+    font-size: 1.45rem;
+    color: var(--cream);
+    margin-bottom: 0.8rem;
+}
+
+.internship-success p {
+    max-width: 420px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1.8rem;
+}
+
 /* ====================================================
    PRACTICE AREAS
    ==================================================== */
