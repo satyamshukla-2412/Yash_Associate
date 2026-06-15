@@ -23,7 +23,7 @@ module.exports = async function(req, res) {
         aboutText: 'Yash Associates has been a beacon of legal excellence since 2005. We provide comprehensive legal services to individuals and corporations.',
         address: '24-BD, Rajbhadur Compound, Opposite to BSE, Fort, Mumbai — 400001',
         phone: '9323282940 / 9821248856',
-        email: 'dilipshukla81@yahoo.com',
+        email: 'yashassociate2005@gmail.com',
         heroBgImg: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Supreme_Court_of_India_01.jpg',
         heroPortraitImg: 'ASSETS/hero_advocate_portrait.png',
         aboutBgImg: 'https://upload.wikimedia.org/wikipedia/commons/e/ec/Bombay_High_Court.jpg',
