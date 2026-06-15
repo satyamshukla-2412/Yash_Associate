@@ -20,7 +20,10 @@ module.exports = async function(req, res) {
         heroSubtitle: 'JUSTICE • INTEGRITY • DEDICATION',
         heroDescription: 'Led by ADV. Dilip H. Shukla, delivering 21+ years of unwavering legal counsel across civil, criminal, corporate, and constitutional law.',
         aboutTitle: 'About Our Firm',
-        aboutText: 'Yash Associates has been a beacon of legal excellence since 2005. We provide comprehensive legal services to individuals and corporations.',
+        aboutText: `As the founder of Yash Associates, he continues to lead with a vision of delivering accessible, reliable, and high-quality legal services while upholding the highest standards of the legal profession.  
+With over 21 years of experience in the legal profession, he has built a reputation for providing practical legal advice, strategic representation, and unwavering dedication to his clients. His approach combines deep legal knowledge with a thorough understanding of each client's unique circumstances, ensuring effective and result-oriented solutions.
+
+Throughout his career, Advocate Shukla has handled matters across various areas of law, representing individuals, businesses, and organizations before different courts and legal forums. Known for his professionalism, integrity, and attention to detail, he remains committed to protecting the rights and interests of those he represents.`,
         address: '24-BD, Rajbhadur Compound, Opposite to BSE, Fort, Mumbai — 400001',
         phone: '9323282940 / 9821248856',
         email: 'yashassociate2005@gmail.com',
