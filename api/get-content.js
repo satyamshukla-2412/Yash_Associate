@@ -27,7 +27,7 @@ Throughout his career, Advocate Shukla has handled matters across various areas 
         address: '24-BD, Rajbhadur Compound, Opposite to BSE, Fort, Mumbai — 400001',
         phone: '9323282940 / 9821248856',
         email: 'yashassociate2005@gmail.com',
-        heroBgImg: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Supreme_Court_of_India_01.jpg',
+        heroBgImg: 'ASSETS/hero_reference_bg.webp',
         heroPortraitImg: 'ASSETS/hero_advocate_portrait.png',
         aboutBgImg: 'https://upload.wikimedia.org/wikipedia/commons/e/ec/Bombay_High_Court.jpg',
         aboutPortraitImg: 'ASSETS/about_portrait.png',

@@ -138,12 +138,20 @@ function initializeApp() {
 
                 // Update Images
                 const images = ['heroBgImg', 'heroPortraitImg', 'aboutBgImg', 'aboutPortraitImg', 'practiceBgImg', 'courtsBgImg', 'clientsBgImg', 'teamBgImg', 'dividerBgImg'];
+                const localHeroBg = 'ASSETS/hero_reference_bg.webp';
                 images.forEach(img => {
                     if (data[img]) {
                         const el = document.getElementById('db-' + img);
                         if (el) el.src = data[img];
                     }
                 });
+                if (data.heroBgImg) {
+                    const heroBgEl = document.getElementById('db-heroBgImg');
+                    if (heroBgEl) {
+                        const heroBgSrc = String(data.heroBgImg);
+                        heroBgEl.src = /supreme[_-]?court|upload\.wikimedia\.org/i.test(heroBgSrc) ? localHeroBg : heroBgSrc;
+                    }
+                }
 
                 // Update Practice Areas
                 if (data.practiceAreasText) {
