@@ -3,87 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login | Yash Associates</title>
+    <title>Admin Login | Yash Associate</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="login-body">
-
     <div class="login-container">
         <div class="login-card">
             <div class="login-header">
-                <h2>Yash Associates</h2>
+                <h2>Yash Associate</h2>
                 <p>Secure Admin Portal</p>
             </div>
-            
+
+            <div class="login-copy">
+                Manage live content, images, contact details, and future social links from one place.
+            </div>
+
+            <div class="login-message" id="loginMessage" style="display:none;"></div>
+
             <form id="loginForm" class="login-form">
-                <div class="error-message" id="errorMessage" style="display: none;"></div>
-                
                 <div class="input-group">
                     <label for="username">Admin ID</label>
-                    <input type="text" id="username" name="username" required placeholder="Enter your ID">
+                    <input type="text" id="username" name="username" required placeholder="Enter your ID" autocomplete="username">
                 </div>
-                
+
                 <div class="input-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required placeholder="••••••••">
+                    <input type="password" id="password" name="password" required placeholder="••••••••" autocomplete="current-password">
                 </div>
-                
+
                 <button type="submit" class="btn-primary" id="loginBtn">
                     <span class="btn-text">Authenticate</span>
                     <span class="loader" id="loginLoader" style="display: none;"></span>
                 </button>
             </form>
-            
+
+            <div class="reset-panel">
+                <button type="button" class="text-link" id="toggleResetBtn">Forgot password?</button>
+                <div id="resetRequestWrap" style="display:none;">
+                    <p class="reset-helper">Use the recovery email to generate a reset code and secure link.</p>
+                    <form id="resetRequestForm" class="login-form">
+                        <div class="input-group">
+                            <label for="resetEmail">Recovery Email</label>
+                            <input type="email" id="resetEmail" placeholder="yashassociate2005@gmail.com" autocomplete="email">
+                        </div>
+                        <button type="submit" class="btn-primary" id="resetRequestBtn">
+                            <span class="btn-text">Send Reset Code</span>
+                            <span class="loader" id="resetRequestLoader" style="display:none;"></span>
+                        </button>
+                    </form>
+                    <div class="reset-result" id="resetResult" style="display:none;"></div>
+                    <form id="resetConfirmForm" class="login-form" style="display:none; margin-top: 18px;">
+                        <div class="input-group">
+                            <label for="resetToken">Reset Token</label>
+                            <input type="text" id="resetToken" placeholder="Token from link">
+                        </div>
+                        <div class="input-group">
+                            <label for="resetCode">Reset Code</label>
+                            <input type="text" id="resetCode" placeholder="6-digit code" inputmode="numeric">
+                        </div>
+                        <div class="input-group">
+                            <label for="newPassword">New Password</label>
+                            <input type="password" id="newPassword" placeholder="Enter new password">
+                        </div>
+                        <button type="submit" class="btn-primary" id="resetConfirmBtn">
+                            <span class="btn-text">Update Password</span>
+                            <span class="loader" id="resetConfirmLoader" style="display:none;"></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
             <div class="login-footer">
-                <a href="/">&larr; Back to Main Website</a>
+                <a href="/">← Back to Main Website</a>
             </div>
         </div>
     </div>
 
     <script>
+        const loginMessage = document.getElementById('loginMessage');
+        const resetWrap = document.getElementById('resetRequestWrap');
+        const toggleResetBtn = document.getElementById('toggleResetBtn');
+        const resetResult = document.getElementById('resetResult');
+        const resetConfirmForm = document.getElementById('resetConfirmForm');
+
+        function setBusy(btn, loader, busy) {
+            btn.disabled = busy;
+            const text = btn.querySelector('.btn-text');
+            if (text) text.style.display = busy ? 'none' : 'inline-block';
+            if (loader) loader.style.display = busy ? 'inline-block' : 'none';
+        }
+
+        function showLoginMessage(text, kind = 'error') {
+            loginMessage.textContent = text;
+            loginMessage.className = `login-message ${kind}`;
+            loginMessage.style.display = 'block';
+        }
+
+        function openResetPanel() {
+            resetWrap.style.display = 'block';
+            toggleResetBtn.style.display = 'none';
+        }
+
+        if (new URLSearchParams(window.location.search).get('reset') === '1') {
+            openResetPanel();
+        }
+
+        toggleResetBtn.addEventListener('click', openResetPanel);
+
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            
             const btn = document.getElementById('loginBtn');
             const loader = document.getElementById('loginLoader');
-            const btnText = document.querySelector('.btn-text');
-            const errorMsg = document.getElementById('errorMessage');
-            
-            btn.disabled = true;
-            btnText.style.display = 'none';
-            loader.style.display = 'inline-block';
-            errorMsg.style.display = 'none';
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
+            setBusy(btn, loader, true);
+            loginMessage.style.display = 'none';
+
             try {
                 const response = await fetch('/api/login', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ username, password })
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: document.getElementById('username').value.trim(),
+                        password: document.getElementById('password').value
+                    })
                 });
-                
                 const data = await response.json();
-                
                 if (data.success) {
                     window.location.href = '/admin/index.html';
-                } else {
-                    errorMsg.textContent = data.error || 'Authentication failed. Please try again.';
-                    errorMsg.style.display = 'block';
-                    btn.disabled = false;
-                    btnText.style.display = 'inline-block';
-                    loader.style.display = 'none';
+                    return;
                 }
+                showLoginMessage(data.error || 'Authentication failed.');
             } catch (err) {
-                errorMsg.textContent = 'Network error. Please ensure you are running this on Vercel or a proper server.';
-                errorMsg.style.display = 'block';
-                btn.disabled = false;
-                btnText.style.display = 'inline-block';
-                loader.style.display = 'none';
+                showLoginMessage('Network error. Please try again.');
+            } finally {
+                setBusy(btn, loader, false);
+            }
+        });
+
+        document.getElementById('resetRequestForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('resetRequestBtn');
+            const loader = document.getElementById('resetRequestLoader');
+            setBusy(btn, loader, true);
+            resetResult.style.display = 'none';
+
+            try {
+                const response = await fetch('/api/request-password-reset', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: document.getElementById('resetEmail').value.trim()
+                    })
+                });
+                const data = await response.json();
+                if (!data.success) {
+                    resetResult.textContent = data.error || 'Unable to generate reset code.';
+                    resetResult.className = 'reset-result error';
+                    resetResult.style.display = 'block';
+                    return;
+                }
+
+                const token = new URLSearchParams(data.resetLink.split('?')[1]).get('token') || '';
+                document.getElementById('resetToken').value = token;
+                resetResult.innerHTML = `
+                    <strong>Reset code generated.</strong><br>
+                    Email: ${data.resetEmail}<br>
+                    Code: <span class="mono">${data.resetCode}</span><br>
+                    Link: <a href="${data.resetLink}">${data.resetLink}</a>
+                `;
+                resetResult.className = 'reset-result success';
+                resetResult.style.display = 'block';
+                resetConfirmForm.style.display = 'block';
+            } catch (err) {
+                resetResult.textContent = 'Network error while generating reset code.';
+                resetResult.className = 'reset-result error';
+                resetResult.style.display = 'block';
+            } finally {
+                setBusy(btn, loader, false);
+            }
+        });
+
+        document.getElementById('resetConfirmForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('resetConfirmBtn');
+            const loader = document.getElementById('resetConfirmLoader');
+            setBusy(btn, loader, true);
+
+            try {
+                const response = await fetch('/api/reset-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        token: document.getElementById('resetToken').value.trim(),
+                        code: document.getElementById('resetCode').value.trim(),
+                        password: document.getElementById('newPassword').value
+                    })
+                });
+                const data = await response.json();
+                if (data.success) {
+                    showLoginMessage('Password updated successfully. Please log in again.', 'success');
+                    resetConfirmForm.reset();
+                    return;
+                }
+                resetResult.textContent = data.error || 'Could not update password.';
+                resetResult.className = 'reset-result error';
+                resetResult.style.display = 'block';
+            } catch (err) {
+                resetResult.textContent = 'Network error while updating password.';
+                resetResult.className = 'reset-result error';
+                resetResult.style.display = 'block';
+            } finally {
+                setBusy(btn, loader, false);
             }
         });
     </script>

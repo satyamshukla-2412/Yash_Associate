@@ -109,9 +109,13 @@ async function fetchCMSContent() {
             setVal('aboutText', 'aboutText');
             setVal('teamCount', 'teamCount');
             setVal('teamText', 'teamText');
+            setVal('teamImage', 'teamImage');
             setVal('address', 'address');
             setVal('phone', 'phone');
             setVal('email', 'email');
+            setVal('linkedinUrl', 'linkedinUrl');
+            setVal('facebookUrl', 'facebookUrl');
+            setVal('instagramUrl', 'instagramUrl');
 
             // Images
             setVal('heroBgImg', 'heroBgImg');
@@ -121,7 +125,6 @@ async function fetchCMSContent() {
             setVal('practiceBgImg', 'practiceBgImg');
             setVal('courtsBgImg', 'courtsBgImg');
             setVal('clientsBgImg', 'clientsBgImg');
-            setVal('teamBgImg', 'teamBgImg');
             setVal('dividerBgImg', 'dividerBgImg');
 
             // Lists
@@ -158,6 +161,7 @@ async function saveCMSContent() {
         aboutText: getVal('aboutText'),
         teamCount: getVal('teamCount'),
         teamText: getVal('teamText'),
+        teamImage: getVal('teamImage'),
         address: getVal('address'),
         phone: getVal('phone'),
         email: getVal('email'),
@@ -169,8 +173,10 @@ async function saveCMSContent() {
         practiceBgImg: getVal('practiceBgImg'),
         courtsBgImg: getVal('courtsBgImg'),
         clientsBgImg: getVal('clientsBgImg'),
-        teamBgImg: getVal('teamBgImg'),
         dividerBgImg: getVal('dividerBgImg'),
+        linkedinUrl: getVal('linkedinUrl'),
+        facebookUrl: getVal('facebookUrl'),
+        instagramUrl: getVal('instagramUrl'),
         // Lists
         practiceAreasText: getVal('practiceAreasText'),
         courtsText: getVal('courtsText'),

@@ -137,11 +137,30 @@ function initializeApp() {
                 }
 
                 // Update Images
-                const images = ['heroBgImg', 'heroPortraitImg', 'aboutBgImg', 'aboutPortraitImg', 'practiceBgImg', 'courtsBgImg', 'clientsBgImg', 'teamBgImg', 'dividerBgImg'];
+                const images = ['heroBgImg', 'heroPortraitImg', 'aboutBgImg', 'aboutPortraitImg', 'practiceBgImg', 'courtsBgImg', 'clientsBgImg', 'teamBgImg', 'dividerBgImg', 'teamImage'];
                 images.forEach(img => {
                     if (data[img]) {
                         const el = document.getElementById('db-' + img);
                         if (el) el.src = data[img];
+                    }
+                });
+
+                const socialLinks = [
+                    ['linkedinUrl', 'linkedinUrl'],
+                    ['facebookUrl', 'facebookUrl'],
+                    ['instagramUrl', 'instagramUrl']
+                ];
+                socialLinks.forEach(([field, id]) => {
+                    const value = String(data[field] || '').trim();
+                    const el = document.getElementById('db-' + id);
+                    if (el) {
+                        if (value) {
+                            el.href = value;
+                            el.style.display = '';
+                        } else {
+                            el.removeAttribute('href');
+                            el.style.display = 'none';
+                        }
                     }
                 });
 

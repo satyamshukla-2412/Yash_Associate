@@ -1,6 +1,8 @@
+const { AUTH_COOKIE } = require('./admin-config');
+
 module.exports = function(req, res) {
   // Clear the cookie by setting Max-Age to 0
-  res.setHeader('Set-Cookie', 'auth_token=; Path=/; HttpOnly; Secure; Max-Age=0; SameSite=Strict');
+  res.setHeader('Set-Cookie', `${AUTH_COOKIE.split(';')[0]}=; Path=/; HttpOnly; Secure; Max-Age=0; SameSite=Strict`);
   
   if (req.method === 'POST') {
     return res.status(200).json({ success: true });
