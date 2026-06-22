@@ -815,11 +815,36 @@ function initializeApp() {
 
     handleNavScroll();
     updateProgressBar();
-}
+    }
 
-// Robust execution model
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeApp);
+    // Track unique visitors for admin dashboard insights
+    async function trackVisitor() {
+        try {
+            const storageKey = 'ya_visitor_id';
+            let sessionId = localStorage.getItem(storageKey);
+            if (!sessionId) {
+                sessionId = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+                localStorage.setItem(storageKey, sessionId);
+            }
+
+            await fetch('/api/track-visit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    sessionId,
+                    path: window.location.pathname
+                })
+            });
+        } catch (error) {
+            // Non-blocking analytics; ignore failures.
+        }
+    }
+
+    trackVisitor();
+
+    // Robust execution model
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeApp);
 } else {
     initializeApp();
 }

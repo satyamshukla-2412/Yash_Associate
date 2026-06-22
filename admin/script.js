@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Load initial data
+    fetchVisitors();
     fetchMessages();
     fetchCMSContent();
 
@@ -33,6 +34,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 let currentMessageFilter = 'all';
 let cachedMessages = [];
+
+async function fetchVisitors() {
+    try {
+        const response = await fetch('/api/get-visitors');
+        const data = await response.json();
+        if (data.success && data.data) {
+            const visitorCount = document.getElementById('visitorCount');
+            if (visitorCount) visitorCount.textContent = data.data.visitors || 0;
+        }
+    } catch (e) {
+        console.error('Failed to load visitors');
+    }
+}
 
 function switchMainTab(tabId) {
     document.getElementById('dashboardTab').style.display = tabId === 'dashboard' ? 'block' : 'none';
