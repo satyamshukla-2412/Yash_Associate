@@ -95,6 +95,12 @@ body {
     font-size: 0.95rem;
 }
 
+.social-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 18px;
+}
+
 .input-group {
     margin-bottom: 24px;
 }
@@ -220,6 +226,37 @@ body {
 
 .mono {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.editor-section h2 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--gold-light);
+    margin-bottom: 8px;
+}
+
+.editor-section > p {
+    max-width: 780px;
+    line-height: 1.6;
+}
+
+.editor-card h3 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.tabs-nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: linear-gradient(180deg, rgba(18,16,14,0.95), rgba(18,16,14,0.86));
+    backdrop-filter: blur(10px);
+}
+
+.tabs-nav button {
+    letter-spacing: 0.02em;
 }
 
 .error-message {

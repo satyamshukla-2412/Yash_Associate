@@ -40,6 +40,8 @@ Throughout his career, Advocate Shukla has handled matters across various areas 
         linkedinUrl: '',
         facebookUrl: '',
         instagramUrl: '',
+        youtubeUrl: '',
+        xUrl: '',
         practiceAreasText: 'Criminal Law|Robust criminal defense and prosecution counsel, bail applications, and trial representation.\nCivil Law|Property disputes, contracts, succession, and civil rights protection with meticulous legal representation.\nConstitutional Law|Writ petitions, fundamental rights litigation, and constitutional remedies before High Court and Supreme Court.\nCorporate Law|Company formation, mergers & acquisitions, compliance, shareholder agreements, and corporate governance.\nBanking & Finance Law|Debt recovery, SARFAESI proceedings, banking disputes, financial fraud, and DRT matters.\nFamily Law|Divorce, custody, maintenance, domestic violence cases, and matrimonial dispute resolution.\nProperty / Real Estate Law|Land acquisition, title verification, property registration, RERA disputes, and real estate litigation.\nCommercial & Business Litigation|Partnership disputes, trade disputes, contractual claims, and arbitration proceedings.\nConsumer & Small Claims|Consumer protection cases, deficiency of service, unfair trade practices, and small claims resolution.',
         courtsText: 'Supreme Court|The Apex Court of India\nHigh Court|Bombay High Court\nSession Court|Criminal Sessions\nMagistrate Court|Metropolitan Magistrate\nNCLT|National Company Law Tribunal\nDRT|Debt Recovery Tribunal\nFamily Court|Family Disputes Tribunal\nSmall Causes Court|Small Claims Jurisdiction',
         clientsText: 'Lotus Refinery, NSEL, Kamla Group, RNA Builder, Baba Siddiqui Murder Case, Rohit Shetty Firing Case',

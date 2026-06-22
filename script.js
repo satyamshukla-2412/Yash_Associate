@@ -148,7 +148,9 @@ function initializeApp() {
                 const socialLinks = [
                     ['linkedinUrl', 'linkedinUrl'],
                     ['facebookUrl', 'facebookUrl'],
-                    ['instagramUrl', 'instagramUrl']
+                    ['instagramUrl', 'instagramUrl'],
+                    ['youtubeUrl', 'youtubeUrl'],
+                    ['xUrl', 'xUrl']
                 ];
                 socialLinks.forEach(([field, id]) => {
                     const value = String(data[field] || '').trim();

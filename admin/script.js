@@ -116,6 +116,8 @@ async function fetchCMSContent() {
             setVal('linkedinUrl', 'linkedinUrl');
             setVal('facebookUrl', 'facebookUrl');
             setVal('instagramUrl', 'instagramUrl');
+            setVal('youtubeUrl', 'youtubeUrl');
+            setVal('xUrl', 'xUrl');
 
             // Images
             setVal('heroBgImg', 'heroBgImg');
@@ -177,6 +179,8 @@ async function saveCMSContent() {
         linkedinUrl: getVal('linkedinUrl'),
         facebookUrl: getVal('facebookUrl'),
         instagramUrl: getVal('instagramUrl'),
+        youtubeUrl: getVal('youtubeUrl'),
+        xUrl: getVal('xUrl'),
         // Lists
         practiceAreasText: getVal('practiceAreasText'),
         courtsText: getVal('courtsText'),
