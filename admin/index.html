@@ -44,25 +44,33 @@
             <div id="dashboardTab">
                 <section class="dashboard-stats">
                     <div class="stat-card">
-                        <h3>Total Visitors</h3>
-                        <p class="stat-number">2,408</p>
+                        <h3>Total Consultations</h3>
+                        <p class="stat-number" id="consultationCount">0</p>
                     </div>
                     <div class="stat-card">
-                        <h3>Total Messages</h3>
+                        <h3>Internship Applications</h3>
+                        <p class="stat-number" id="internshipCount">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Submissions</h3>
                         <p class="stat-number" id="totalMsgCount">0</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Active Cases</h3>
-                        <p class="stat-number">45</p>
                     </div>
                 </section>
 
                 <section class="recent-activity">
-                    <h2>Client Inquiries</h2>
+                    <div class="dashboard-toolbar">
+                        <h2>Client Inquiries</h2>
+                        <div class="message-filter-group">
+                            <button type="button" class="filter-btn active" data-filter="all">All</button>
+                            <button type="button" class="filter-btn" data-filter="consultation">Consultations</button>
+                            <button type="button" class="filter-btn" data-filter="internship">Internships</button>
+                        </div>
+                    </div>
                     <div class="activity-table">
                         <table>
                             <thead>
                                 <tr>
+                                    <th>Type</th>
                                     <th>Name</th>
                                     <th>Email & Phone</th>
                                     <th>Message</th>
@@ -71,7 +79,7 @@
                                 </tr>
                             </thead>
                             <tbody id="messagesTableBody">
-                                <tr><td colspan="5">Loading messages...</td></tr>
+                                <tr><td colspan="6">Loading submissions...</td></tr>
                             </tbody>
                         </table>
                     </div>

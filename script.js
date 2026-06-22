@@ -694,6 +694,7 @@ function initializeApp() {
             name: formData.get('Full Name'),
             phone: formData.get('Mobile Number'),
             email: formData.get('Email'),
+            source: 'consultation',
             message: `Topic: ${formData.get('Case Topic') || 'None'}\n\n${formData.get('Message') || 'No description provided.'}`
         };
 
@@ -767,6 +768,7 @@ function initializeApp() {
                 name: formData.get('Full Name'),
                 phone: formData.get('Phone Number'),
                 email: formData.get('Email'),
+                source: 'internship',
                 message: [
                     'Internship Application',
                     `College: ${formData.get('College Name') || 'Not provided'}`,

@@ -400,6 +400,63 @@ body {
     margin-bottom: 50px;
 }
 
+.dashboard-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.message-filter-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    border: 1px solid rgba(201, 168, 76, 0.2);
+    background: rgba(255,255,255,0.02);
+    color: var(--text-secondary);
+    padding: 10px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    font: inherit;
+    transition: all 0.2s ease;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: rgba(201, 168, 76, 0.14);
+    color: var(--gold-light);
+    border-color: var(--gold);
+}
+
+.submission-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.pill-consultation {
+    background: rgba(201, 168, 76, 0.14);
+    color: var(--gold-light);
+    border: 1px solid rgba(201, 168, 76, 0.28);
+}
+
+.pill-internship {
+    background: rgba(76, 137, 201, 0.14);
+    color: #9ec4ff;
+    border: 1px solid rgba(76, 137, 201, 0.28);
+}
+
 .stat-card {
     background-color: var(--card-bg);
     padding: 30px;

@@ -6,7 +6,7 @@ module.exports = async function(req, res) {
   }
 
   try {
-    const { name, email, phone, message } = req.body;
+    const { name, email, phone, message, source } = req.body;
 
     if (!name || !phone) {
       return res.status(400).json({ error: 'Name and phone are required' });
@@ -20,6 +20,7 @@ module.exports = async function(req, res) {
       email: email || '',
       phone,
       message: message || '',
+      source: source || (String(message || '').includes('Internship Application') ? 'internship' : 'consultation'),
       date: new Date().toISOString(),
       status: 'new' // 'new', 'read', 'replied'
     };

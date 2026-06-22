@@ -12,6 +12,15 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchMessages();
     fetchCMSContent();
 
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(item => item.classList.remove('active'));
+            btn.classList.add('active');
+            currentMessageFilter = btn.dataset.filter;
+            renderMessages(cachedMessages);
+        });
+    });
+
     // CMS Form submit listener
     const cmsForm = document.getElementById('cmsForm');
     if (cmsForm) {
@@ -21,6 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+let currentMessageFilter = 'all';
+let cachedMessages = [];
 
 function switchMainTab(tabId) {
     document.getElementById('dashboardTab').style.display = tabId === 'dashboard' ? 'block' : 'none';
@@ -39,42 +51,71 @@ async function fetchMessages() {
         const data = await response.json();
         
         if (data.success) {
-            const tbody = document.getElementById('messagesTableBody');
-            const msgCount = document.getElementById('totalMsgCount');
-            
-            if (msgCount) msgCount.textContent = data.data.length;
-            
-            if (data.data.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5">No messages yet.</td></tr>';
-                return;
-            }
-
-            tbody.innerHTML = '';
-            data.data.forEach(msg => {
-                const date = new Date(msg.date).toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' });
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${msg.name}</td>
-                    <td>
-                        <a href="mailto:${msg.email}" style="color:var(--gold-light); text-decoration:none;">${msg.email}</a><br>
-                        <small><a href="tel:${msg.phone}" style="color:var(--text-secondary); text-decoration:none;">${msg.phone}</a></small>
-                    </td>
-                    <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${msg.message}">${msg.message}</td>
-                    <td>${date}</td>
-                    <td>
-                        <select onchange="updateMessageStatus('${msg._id}', this.value)" style="padding:4px; border-radius:4px; background:transparent; color:var(--text-primary); border:1px solid rgba(255,255,255,0.2);">
-                            <option value="new" ${msg.status==='new'?'selected':''} style="color:black;">New</option>
-                            <option value="read" ${msg.status==='read'?'selected':''} style="color:black;">Read</option>
-                            <option value="replied" ${msg.status==='replied'?'selected':''} style="color:black;">Replied</option>
-                        </select>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
+            cachedMessages = (data.data || []).map(normalizeMessage);
+            updateMessageStats(cachedMessages);
+            renderMessages(cachedMessages);
         }
     } catch (e) {
         console.error('Failed to load messages');
     }
+}
+
+function normalizeMessage(msg) {
+    const source = String(msg.source || '').toLowerCase();
+    const messageText = String(msg.message || '');
+    const inferredSource = source || (messageText.includes('Internship Application') ? 'internship' : 'consultation');
+    return { ...msg, source: inferredSource };
+}
+
+function updateMessageStats(messages) {
+    const total = messages.length;
+    const internships = messages.filter(msg => msg.source === 'internship').length;
+    const consultations = messages.filter(msg => msg.source !== 'internship').length;
+    const totalMsgCount = document.getElementById('totalMsgCount');
+    const internshipCount = document.getElementById('internshipCount');
+    const consultationCount = document.getElementById('consultationCount');
+    if (totalMsgCount) totalMsgCount.textContent = total;
+    if (internshipCount) internshipCount.textContent = internships;
+    if (consultationCount) consultationCount.textContent = consultations;
+}
+
+function renderMessages(messages) {
+    const tbody = document.getElementById('messagesTableBody');
+    if (!tbody) return;
+
+    const filtered = currentMessageFilter === 'all'
+        ? messages
+        : messages.filter(msg => msg.source === currentMessageFilter);
+
+    if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6">No submissions found.</td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = '';
+    filtered.forEach(msg => {
+        const date = new Date(msg.date).toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' });
+        const typeLabel = msg.source === 'internship' ? 'Internship' : 'Consultation';
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td><span class="submission-pill ${msg.source === 'internship' ? 'pill-internship' : 'pill-consultation'}">${typeLabel}</span></td>
+            <td>${msg.name}</td>
+            <td>
+                <a href="mailto:${msg.email}" style="color:var(--gold-light); text-decoration:none;">${msg.email}</a><br>
+                <small><a href="tel:${msg.phone}" style="color:var(--text-secondary); text-decoration:none;">${msg.phone}</a></small>
+            </td>
+            <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${msg.message}">${msg.message}</td>
+            <td>${date}</td>
+            <td>
+                <select onchange="updateMessageStatus('${msg._id}', this.value)" style="padding:4px; border-radius:4px; background:transparent; color:var(--text-primary); border:1px solid rgba(255,255,255,0.2);">
+                    <option value="new" ${msg.status==='new'?'selected':''} style="color:black;">New</option>
+                    <option value="read" ${msg.status==='read'?'selected':''} style="color:black;">Read</option>
+                    <option value="replied" ${msg.status==='replied'?'selected':''} style="color:black;">Replied</option>
+                </select>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
 }
 
 async function updateMessageStatus(id, status) {
