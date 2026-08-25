@@ -1,26 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Yash Associate">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#171311"/>
-      <stop offset="100%" stop-color="#2a241f"/>
-    </linearGradient>
-    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#f7e7a9"/>
-      <stop offset="55%" stop-color="#d9b85a"/>
-      <stop offset="100%" stop-color="#b78d2f"/>
+      <stop offset="0%" stop-color="#1d1a18"/>
+      <stop offset="100%" stop-color="#2a2522"/>
     </linearGradient>
   </defs>
-  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
-  <rect x="11" y="11" width="42" height="42" rx="10" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-  <g transform="translate(0 1)" fill="none" stroke="url(#gold)" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M32 16v22" stroke-width="3.4"/>
-    <path d="M23 22c0 1.8-1.5 3.3-3.3 3.3S16.4 23.8 16.4 22s1.5-3.3 3.3-3.3S23 20.2 23 22Z" stroke-width="2.2"/>
-    <path d="M47.6 22c0 1.8-1.5 3.3-3.3 3.3S41 23.8 41 22s1.5-3.3 3.3-3.3S47.6 20.2 47.6 22Z" stroke-width="2.2"/>
-    <path d="M20 22h6l-3 8Z" stroke-width="2.2"/>
-    <path d="M38 22h6l-3 8Z" stroke-width="2.2"/>
-    <path d="M20.5 29h11" stroke-width="2.4"/>
-    <path d="M32.5 29h11" stroke-width="2.4"/>
-    <path d="M18 38h28" stroke-width="3.2"/>
-    <path d="M27 38c1.6-1.8 3.4-2.7 5-2.7S35.4 36.2 37 38" stroke-width="2.4"/>
+  <rect width="64" height="64" fill="url(#bg)"/>
+  <g fill="none" stroke="#f4f1ea" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M32 15v20" stroke-width="3.4"/>
+    <path d="M21 23h22" stroke-width="2.6"/>
+    <path d="M32 17l-9 5h18l-9-5Z" stroke-width="2.1"/>
+    <path d="M19.5 24.5c0 2-1.6 3.6-3.6 3.6s-3.6-1.6-3.6-3.6 1.6-3.6 3.6-3.6 3.6 1.6 3.6 3.6Z" stroke-width="2.2"/>
+    <path d="M51.7 24.5c0 2-1.6 3.6-3.6 3.6s-3.6-1.6-3.6-3.6 1.6-3.6 3.6-3.6 3.6 1.6 3.6 3.6Z" stroke-width="2.2"/>
+    <path d="M15.9 25.5l3.6 7.5" stroke-width="2.2"/>
+    <path d="M48.1 25.5l-3.6 7.5" stroke-width="2.2"/>
+    <path d="M18 34h28" stroke-width="3"/>
+    <path d="M24 40c2.5-2.8 4.9-4.2 8-4.2s5.5 1.4 8 4.2" stroke-width="2.4"/>
   </g>
 </svg>
