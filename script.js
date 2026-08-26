@@ -4,6 +4,9 @@
    ==================================================== */
 
 function initializeApp() {
+    const FIRM_START_YEAR = 2005;
+    const experienceYears = Math.max(0, new Date().getFullYear() - FIRM_START_YEAR);
+
     const highCourtNames = [
         'Bombay High Court',
         'High Court of Bombay at Goa',
@@ -34,6 +37,27 @@ function initializeApp() {
         'Manipur High Court',
         'Sikkim High Court'
     ];
+
+    function applyFirmExperienceCopy(root = document) {
+        root.querySelectorAll('[data-firm-experience-label]').forEach(el => {
+            el.textContent = `${experienceYears}+ Years`;
+        });
+
+        root.querySelectorAll('[data-firm-experience-count]').forEach(el => {
+            el.setAttribute('data-count', String(experienceYears));
+        });
+
+        root.querySelectorAll('[data-firm-experience-text]').forEach(el => {
+            el.textContent = `${experienceYears}+ years`;
+        });
+    }
+
+    function syncFirmExperienceMeta() {
+        const metaDescription = document.querySelector('meta[name="description"]');
+        if (metaDescription) {
+            metaDescription.content = metaDescription.content.replace(/\b\d+\+?\s+years/gi, `${experienceYears}+ years`);
+        }
+    }
 
     function escapeHtml(value) {
         return String(value || '').replace(/[&<>"']/g, char => ({
@@ -89,6 +113,9 @@ function initializeApp() {
     // Safety fallback if load event is delayed
     setTimeout(hidePreloader, 3000); // Shorter fallback (3s) for better UX
 
+    applyFirmExperienceCopy(document);
+    syncFirmExperienceMeta();
+
     // ────── FETCH DYNAMIC CONTENT FROM DB ──────
     async function loadDynamicContent() {
         try {
@@ -106,7 +133,7 @@ function initializeApp() {
                     return text.endsWith('+') ? text : `${text}+`;
                 };
                 const normalizeMetricText = value => String(value || '')
-                    .replace(/\b20\+?\s+years/gi, '21+ years')
+                    .replace(/\b\d+\+?\s+years/gi, `${experienceYears}+ years`)
                     .replace(/\b11\+?\s+(dedicated\s+)?legal professionals/gi, (match, prefix = '') => `11+ ${prefix || ''}legal professionals`)
                     .replace(/\b8\+?\s+court/gi, '8+ court');
                 
@@ -124,6 +151,7 @@ function initializeApp() {
                 // Update About
                 update('db-aboutTitle', data.aboutTitle);
                 update('db-aboutText', normalizeMetricText(data.aboutText));
+                applyFirmExperienceCopy(document);
                 
                 // Update Contact
                 update('db-address', data.address);

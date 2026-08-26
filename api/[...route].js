@@ -3,6 +3,26 @@ const { getDb } = require('./db');
 const { AUTH_COOKIE } = require('./admin-config');
 const { getAdminState, updateAdminState } = require('./admin-state');
 
+const FIRM_START_YEAR = 2005;
+
+function getFirmExperienceYears(referenceDate = new Date()) {
+  return Math.max(0, referenceDate.getFullYear() - FIRM_START_YEAR);
+}
+
+function normalizeFirmExperienceText(value, years = getFirmExperienceYears()) {
+  return String(value || '').replace(/\b\d+\+?\s+years\b/gi, `${years}+ years`);
+}
+
+function normalizeContent(content) {
+  const normalized = { ...content };
+  Object.keys(normalized).forEach(key => {
+    if (typeof normalized[key] === 'string') {
+      normalized[key] = normalizeFirmExperienceText(normalized[key]);
+    }
+  });
+  return normalized;
+}
+
 function json(res, status, payload) {
   return res.status(status).json(payload);
 }
@@ -18,14 +38,15 @@ function routePath(req) {
 }
 
 function defaultContent() {
+  const experienceYears = getFirmExperienceYears();
   return {
     _id: 'website_content',
     heroTitle: 'Yash Associate',
     heroSubtitle: 'JUSTICE â€¢ INTEGRITY â€¢ DEDICATION',
-    heroDescription: 'Led by ADV. Dilip H. Shukla, delivering 21+ years of unwavering legal counsel across civil, criminal, corporate, and constitutional law.',
+    heroDescription: `Led by ADV. Dilip H. Shukla, delivering ${experienceYears}+ years of unwavering legal counsel across civil, criminal, corporate, and constitutional law.`,
     aboutTitle: 'About Our Firm',
     aboutText: `As the founder of Yash Associates, he continues to lead with a vision of delivering accessible, reliable, and high-quality legal services while upholding the highest standards of the legal profession.  
-With over 21 years of experience in the legal profession, he has built a reputation for providing practical legal advice, strategic representation, and unwavering dedication to his clients. His approach combines deep legal knowledge with a thorough understanding of each client's unique circumstances, ensuring effective and result-oriented solutions.
+With over ${experienceYears} years of experience in the legal profession, he has built a reputation for providing practical legal advice, strategic representation, and unwavering dedication to his clients. His approach combines deep legal knowledge with a thorough understanding of each client's unique circumstances, ensuring effective and result-oriented solutions.
 
 Throughout his career, Advocate Shukla has handled matters across various areas of law, representing individuals, businesses, and organizations before different courts and legal forums. Known for his professionalism, integrity, and attention to detail, he remains committed to protecting the rights and interests of those he represents.`,
     address: '24-BD, Rajbhadur Compound, Opposite to BSE, Fort, Mumbai â€” 400001',
@@ -64,7 +85,7 @@ async function handleGetContent(req, res) {
       content = defaultContent();
       await collection.insertOne(content);
     }
-    return json(res, 200, { success: true, data: content });
+    return json(res, 200, { success: true, data: normalizeContent(content) });
   } catch (error) {
     console.error('Database Error:', error);
     return json(res, 500, { success: false, error: 'Database connection error' });
@@ -77,7 +98,7 @@ async function handleUpdateContent(req, res) {
   try {
     const db = await getDb();
     const collection = db.collection('content');
-    const newContent = { ...(req.body || {}) };
+    const newContent = normalizeContent({ ...(req.body || {}) });
     delete newContent._id;
     await collection.updateOne({ _id: 'website_content' }, { $set: newContent }, { upsert: true });
     return json(res, 200, { success: true, message: 'Content updated successfully' });
