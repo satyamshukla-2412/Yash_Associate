@@ -3460,6 +3460,28 @@ body.menu-open {
         max-width: 320px;
     }
 
+    /* Restore the original cases layout on phones using desktop mode */
+    .cases-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem 1.5rem;
+        gap: 1.25rem;
+    }
+
+    .cases-card-content h3 {
+        font-size: 1.1rem;
+    }
+
+    .cases-card-content p {
+        font-size: 0.82rem;
+    }
+
+    .cases-btn {
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+    }
+
     /* Disable hover-dependent transforms on touch */
     .card-inner:hover {
         transform: none;
