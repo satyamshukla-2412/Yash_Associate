@@ -568,32 +568,6 @@ function initializeApp() {
     }
     window.addEventListener('scroll', updateProgressBar, { passive: true });
 
-    // ────── GOLD CURSOR GLOW ON HERO (skip on touch devices) ──────
-    if (!isTouchDevice) {
-        const heroSection = document.querySelector('.hero-section');
-        if (heroSection) {
-            const glow = document.createElement('div');
-            glow.style.cssText = `
-                position: absolute;
-                width: 400px;
-                height: 400px;
-                border-radius: 50%;
-                background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
-                pointer-events: none;
-                z-index: 1;
-                transition: transform 0.12s ease-out;
-                will-change: transform;
-            `;
-            heroSection.appendChild(glow);
-
-            heroSection.addEventListener('mousemove', (e) => {
-                const rect = heroSection.getBoundingClientRect();
-                const x = e.clientX - rect.left - 200;
-                const y = e.clientY - rect.top - 200;
-                glow.style.transform = `translate(${x}px, ${y}px)`;
-            });
-        }
-    }
     // ────── CONSULTATION MODAL ──────
     const consultModal = document.getElementById('consultationModal');
     const openBtn = document.getElementById('openConsultationBtn');
