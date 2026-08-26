@@ -3409,6 +3409,57 @@ body.menu-open {
 
 /* ====== TOUCH DEVICE OPTIMISATION ====== */
 @media (hover: none) and (pointer: coarse) {
+    /* Make the hero readable on phones even when the browser requests the desktop site */
+    .hero-section {
+        min-height: 100vh;
+        min-height: 100dvh;
+    }
+
+    .hero-inner {
+        padding: 5.1rem 1rem 0;
+    }
+
+    .hero-content {
+        width: min(100%, 680px);
+        padding: 0;
+    }
+
+    .hero-line {
+        font-size: clamp(2.8rem, 10.5vw, 5.4rem);
+    }
+
+    .hero-tagline {
+        font-size: clamp(0.8rem, 2.2vw, 0.95rem);
+        letter-spacing: 0.22em;
+    }
+
+    .hero-description {
+        font-size: clamp(0.95rem, 2.2vw, 1.05rem);
+        max-width: 34rem;
+    }
+
+    .hero-badge {
+        font-size: 0.68rem;
+        padding: 0.4rem 1rem;
+    }
+
+    .hero-cta-group {
+        flex-direction: column;
+        align-items: stretch;
+        max-width: 280px;
+    }
+
+    .btn {
+        width: 100%;
+        min-height: 48px;
+        justify-content: center;
+    }
+
+    .hero-trust-strip {
+        grid-template-columns: 1fr;
+        max-width: 320px;
+    }
+
     /* Disable hover-dependent transforms on touch */
     .card-inner:hover {
         transform: none;
